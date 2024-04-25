@@ -1,0 +1,45 @@
+name: expression_de_besoins_convers
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  http: ^1.1.0
+  get: ^4.6.6
+  flutter_secure_storage: ^9.0.0
+  flutter_html: ^2.1.2
+  package_info_plus: ^7.0.0
+  dio: ^5.4.3+1
+  url_launcher: ^6.2.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/logo-nuxe-background.png
+    - images/logo-nuxe-background.svg
+    - images/connexion-img.png
+    - images/logo-nuxe.png
+
+  fonts:
+    - family: SackersGothicStd
+      fonts:
+        - asset: fonts\sackers-gothic-std-light.otf
+          weight: 200
+        - asset: fonts\sackers-gothic-std-medium.otf
+        - asset: fonts\sackers-gothic-std-heavy.otf
+          weight: 700
