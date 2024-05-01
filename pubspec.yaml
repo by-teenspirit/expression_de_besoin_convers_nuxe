@@ -34,6 +34,8 @@ flutter:
     - images/logo-nuxe-background.svg
     - images/connexion-img.png
     - images/logo-nuxe.png
+    - images/background-convers.jpg
+    - images/background-convers-transparent.png
 
   fonts:
     - family: SackersGothicStd
