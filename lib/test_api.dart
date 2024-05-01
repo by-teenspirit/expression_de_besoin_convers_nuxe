@@ -6,13 +6,13 @@ import 'package:expression_de_besoins_convers/services/api_service.dart'; // Imp
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static final String api_url =
+  static const String api_url =
       "http://atid.v2.back.dev.jlconsulting.fr:9000"; // Remplacez par votre URL API
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      key: Key("myAppKey"),
+      key: const Key("myAppKey"),
       title: 'Expression de Besoins',
       theme: ThemeData(
         primarySwatch: Colors.blue,

@@ -114,12 +114,12 @@ class RemoteService
         if (authed){
           header.addAll({
             "Authorization": "Bearer "+jwt.toString(),
-            "X-BS-Token-Push": MyApp.token,
+            "X-BS-Token-Push": Convers.token,
           });
         } else {
           header.addAll(customHeaders);
         }
-        var uri = Uri.parse(MyApp.api_url + endpoint);
+        var uri = Uri.parse(Convers.api_url + endpoint);
         print(uri);
         //print(header);
         //print(postData);
@@ -193,7 +193,7 @@ class RemoteService
                 SnackBar(content: Text(jsonData["result"][0]["message"])));
           } else {
             ScaffoldMessenger.of(ctx).showSnackBar(
-                SnackBar(content: Text(
+                const SnackBar(content: Text(
                     "Une erreur s'est produit lors de la communication avec le serveur.")));
           }
 
@@ -202,14 +202,14 @@ class RemoteService
       }catch(error) {
         print(error);
         ScaffoldMessenger.of(ctx).showSnackBar(
-            SnackBar(content: Text(
+            const SnackBar(content: Text(
                 "Une erreur s'est produit lors du décodage des données.")));
         return Future<dynamic>.value(null);
       }
     }
     else{
       ScaffoldMessenger.of(ctx).showSnackBar(
-          SnackBar(content: Text(
+          const SnackBar(content: Text(
               "Erreur de condition dans la requête.")));
       return Future<dynamic>.value(null);
     }
@@ -227,15 +227,15 @@ class RemoteService
   }
 }
 
-    var authStatus = await RemoteService().request("POST", "/api/authenticate", false,
+    /*var authStatus = RemoteService().request("POST", "/api/authenticate", false,
         {},
         {
           "username": emailController.text,
           "password": passController.text,
         },
-        Get.context!);
+        Get.context!);*/
 
-      var accountData = await RemoteService().request("GET", "/api/account", true, {}, {}, Get.context!);   
+      var accountData = RemoteService().request("GET", "/api/account", true, {}, {}, Get.context!);   
 
-      var userData = await RemoteService().request("GET", "/api/v2/generic/contact?condition=contact.email='${accountData["email"]}'", true, {}, {}, Get.context!);
+      /* var userData = RemoteService().request("GET", "/api/v2/generic/contact?condition=contact.email='${accountData["email"]}'", true, {}, {}, Get.context!);*/
       
