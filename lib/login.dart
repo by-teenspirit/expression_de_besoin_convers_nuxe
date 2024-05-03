@@ -25,153 +25,143 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmallScreen = screenWidth < 600;
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(
-              'images/background-convers-transparent.png'), // Chemin vers ton image
-          fit: BoxFit
-              .cover, // Ajuste l'image pour qu'elle couvre tout le conteneur
-        ),
-      ),
-      child: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                // Logo
-                Image.asset(
-                  'images/logo-nuxe-background.png',
-                  height: 100,
-                ),
-                const SizedBox(height: 30.0),
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Logo
+              Image.asset(
+                'images/logo-nuxe-background.png',
+                height: 100,
+              ),
+              const SizedBox(height: 30.0),
 
-                // Grand bloc
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: isSmallScreen
-                      ? Column(
-                          children: <Widget>[
-                            // Deuxième colonne
-                            Expanded(
-                              child: Image.asset(
-                                'images/connexion-img.png',
-                                fit: BoxFit.cover,
-                                height: 50.0,
-                                width: double.infinity,
-                              ),
+              // Grand bloc
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.7,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: isSmallScreen
+                    ? Column(
+                        children: <Widget>[
+                          // Deuxième colonne
+                          Expanded(
+                            child: Image.asset(
+                              'images/connexion-img.png',
+                              fit: BoxFit.cover,
+                              height: 50.0,
+                              width: double.infinity,
                             ),
-                            // Première colonne
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(40.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    const Text(
-                                      'Portail RGPD',
-                                      style: TextStyle(
-                                        fontSize: 36.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                          ),
+                          // Première colonne
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(40.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  const Text(
+                                    'Portail RGPD',
+                                    style: TextStyle(
+                                      fontSize: 36.0,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    const Text(
-                                      'Se connecter',
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
-                                        decorationThickness: 2.0,
-                                      ),
+                                  ),
+                                  const Text(
+                                    'Se connecter',
+                                    style: TextStyle(
+                                      fontSize: 24.0,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 2.0,
                                     ),
-                                    LoginForm(),
-                                    const SizedBox(height: 10.0),
-                                    Row(
-                                      children: <Widget>[
-                                        Checkbox(
-                                          value: false,
-                                          onChanged: (value) {
-                                            // Action pour la checkbox "Se souvenir de moi"
-                                          },
-                                        ),
-                                        const Text('Se souvenir de moi'),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20.0),
-                                    Center(
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          // Action de se connecter
+                                  ),
+                                  LoginForm(),
+                                  const SizedBox(height: 10.0),
+                                  Row(
+                                    children: <Widget>[
+                                      Checkbox(
+                                        value: false,
+                                        onChanged: (value) {
+                                          // Action pour la checkbox "Se souvenir de moi"
                                         },
-                                        icon: const Icon(Icons.login),
-                                        label: const Text('Se connecter'),
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                const Color(0xFF104437),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 40.0,
-                                                vertical: 15.0)),
                                       ),
+                                      const Text('Se souvenir de moi'),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20.0),
+                                  Center(
+                                    child: ElevatedButton.icon(
+                                      onPressed: () {
+                                        // Action de se connecter
+                                      },
+                                      icon: const Icon(Icons.login),
+                                      label: const Text('Se connecter'),
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xFF104437),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 40.0,
+                                              vertical: 15.0)),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        )
-                      : Row(
-                          children: <Widget>[
-                            // Première colonne
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(40.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    const Text(
-                                      'PORTAIL RGPD',
-                                      style: TextStyle(
-                                        fontSize: 36.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'SackersGothicStd',
-                                      ),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        children: <Widget>[
+                          // Première colonne
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(40.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  const Text(
+                                    'PORTAIL RGPD',
+                                    style: TextStyle(
+                                      fontSize: 36.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'SackersGothicStd',
                                     ),
-                                    const Text(
-                                      'Se connecter',
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'SackersGothicStd',
-                                        decoration: TextDecoration.underline,
-                                        decorationThickness: 2.0,
-                                      ),
+                                  ),
+                                  const Text(
+                                    'Se connecter',
+                                    style: TextStyle(
+                                      fontSize: 24.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'SackersGothicStd',
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 2.0,
                                     ),
-                                    const SizedBox(height: 20.0),
-                                    LoginForm(),
-                                  ],
-                                ),
+                                  ),
+                                  const SizedBox(height: 20.0),
+                                  LoginForm(),
+                                ],
                               ),
                             ),
+                          ),
 
-                            // Deuxième colonne
-                            Expanded(
-                              child: Image.asset(
-                                'images/connexion-img.png', // Remplacez 'assets/image.jpg' par le chemin de votre image
-                                fit: BoxFit.cover,
-                              ),
+                          // Deuxième colonne
+                          Expanded(
+                            child: Image.asset(
+                              'images/connexion-img.png', // Remplacez 'assets/image.jpg' par le chemin de votre image
+                              fit: BoxFit.cover,
                             ),
-                          ],
-                        ),
-                ),
-              ],
-            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ],
           ),
         ),
       ),
@@ -191,7 +181,7 @@ class _LoginFormState extends State<LoginForm> {
 
   Future<void> authenticate(String username, String password) async {
     const url =
-        'http://atid.v2.back.dev.jlconsulting.fr:9000/login'; // Remplace TON_URL_API par le lien de ton API
+        'https://atid.v2.back.dev.jlconsulting.fr/api/authenticate'; // Remplace TON_URL_API par le lien de ton API
     final response = await http.post(
       Uri.parse(url),
       headers: <String, String>{
@@ -207,7 +197,12 @@ class _LoginFormState extends State<LoginForm> {
       // Authentification réussie
       final responseData = jsonDecode(response.body);
       final token =
-          responseData['token']; // Récupérer le token d'authentification
+          responseData['id_token']; // Récupérer le token d'authentification
+      if (responseData.containsKey("result")) {
+        return Future<dynamic>.value(responseData["result"]);
+      } else {
+        return Future<dynamic>.value(responseData);
+      }
       // Faire ce que tu veux avec le token, par exemple, sauvegarder dans le stockage local
     } else {
       // Gérer les erreurs
@@ -221,7 +216,7 @@ class _LoginFormState extends State<LoginForm> {
       final password = _passwordController.text;
       authenticate(username, password).then((_) {
         // Naviguer vers une nouvelle page si l'authentification réussit
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/main');
       }).catchError((error) {
         // Afficher un message d'erreur si l'authentification échoue
         ScaffoldMessenger.of(context).showSnackBar(
