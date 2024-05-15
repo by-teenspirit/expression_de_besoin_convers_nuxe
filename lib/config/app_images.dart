@@ -8,5 +8,4 @@ class AppImages {
   static const String largeLogo = "images/logo-nuxe-background.png";
   static const String logoSvg = "images/logo-nuxe-background.svg";
   static const String smallLogo = "images/logo-nuxe.png";
-  static const String smallLogo = "images/logo-nuxe.png";
 }

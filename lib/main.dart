@@ -44,8 +44,8 @@ class _MyAppState extends State<MyApp> {
     final dynamic jsonMap = jsonDecode(jsonString);
     const storage = FlutterSecureStorage();*/
     //print("APIURL: "+jsonMap["api_url"].toString());
-    MyApp.api_url =
-        "https://nuxe.v2.back.dev.backside.fr/api/authenticate"; //jsonMap["api_url"].toString();
+    MyApp. ?api_url =
+        "https://nuxe.v2.back.dev.backside.fr"; //jsonMap["api_url"].toString();
   }
 
   @override

@@ -28,65 +28,6 @@ class RemoteService {
     return '';
   }
 
-  Future<dynamic> uploadFile(String endPoint, String fileName, String filePath,
-      File? file, Uint8List? fileBytes, BuildContext ctx) async {
-    const storage = FlutterSecureStorage();
-    String? jwt = await storage.read(key: "jwt");
-    try {
-      Dioo.FormData? formdata;
-      try {
-        formdata = Dioo.FormData.fromMap({
-          "file": (!kIsWeb
-              ? await Dioo.MultipartFile.fromFile(
-                  file!.path,
-                  filename: fileName,
-                  //show only filename from path
-                )
-              : Dioo.MultipartFile.fromBytes(fileBytes!, filename: fileName)),
-          "ext": getFileExtension(filePath),
-          "web": kIsWeb ? "1" : "0",
-        });
-      } catch (err) {
-        ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
-            content: Text(
-                "Oups, la validation du fichier a Ã©chouÃ©, vous pouvez recommencer.")));
-
-        return Future<dynamic>.value(null);
-      }
-      Dioo.Dio dio = Dioo.Dio();
-      dio.options.headers["Authorization"] = "Bearer ${jwt ?? ""}";
-      print("${MyApp.api_url}/api/v2/generic/picture/$endPoint");
-      print(Dioo.FormData);
-      var response = await dio.post(
-        "${MyApp.api_url}/api/v2/generic/picture/$endPoint",
-        data: formdata ?? "",
-        onSendProgress: (int sent, int total) {
-          //progressPct.value = (sent * 100 / total).toInt();
-        },
-      );
-      if (response.statusCode == 200) {
-        return Future<dynamic>.value(true);
-      } else {
-        var jsonData = jsonDecode(response.toString());
-        if (jsonData.containsKey("errorMessage")) {
-          ScaffoldMessenger.of(ctx)
-              .showSnackBar(SnackBar(content: Text(jsonData["errorMessage"])));
-        } else {
-          ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-              content: Text(
-                  "Oups, la validation nâ€™a pas marchÃ©, vous pouvez recommencer.")));
-        }
-        return Future<dynamic>.value(null);
-      }
-    } catch (error) {
-      print(error);
-      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-          content: Text(
-              "Oups, la validation nâ€™a pas marchÃ©, vous pouvez recommencer.")));
-    }
-    return Future<dynamic>.value(null);
-  }
-
   Future<dynamic> request(
       String type,
       String endpoint,

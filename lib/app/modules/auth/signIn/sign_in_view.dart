@@ -160,58 +160,65 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  late SignInController signInController;
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future<void> authenticate(String username, String password) async {
-    const url =
-        'https://atid.v2.back.dev.jlconsulting.fr/api/authenticate'; // Remplace TON_URL_API par le lien de ton API
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'username': username,
-        'password': password,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      // Authentification réussie
-      final responseData = jsonDecode(response.body);
-      final token =
-          responseData['id_token']; // Récupérer le token d'authentification
-      if (responseData.containsKey("result")) {
-        return Future<dynamic>.value(responseData["result"]);
-      } else {
-        return Future<dynamic>.value(responseData);
-      }
-      // Faire ce que tu veux avec le token, par exemple, sauvegarder dans le stockage local
-    } else {
-      // Gérer les erreurs
-      throw Exception('Erreur lors de l\'authentification');
-    }
+  @override
+  void initState() {
+    super.initState();
+    signInController = Get.put(SignInController());
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      final username = _usernameController.text;
-      final password = _passwordController.text;
-      authenticate(username, password).then((_) {
-        // Naviguer vers une nouvelle page si l'authentification réussit
-        Navigator.pushReplacementNamed(context, '/main');
-      }).catchError((error) {
-        // Afficher un message d'erreur si l'authentification échoue
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Erreur lors de l\'authentification'),
-          ),
-        );
-      });
-    }
-  }
+  // Future<void> authenticate(String username, String password) async {
+  //   const url =
+  //       '/api/authenticate'; // Remplace TON_URL_API par le lien de ton API
+  //   final response = await http.post(
+  //     Uri.parse(url),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       'username': username,
+  //       'password': password,
+  //     }),
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     // Authentification réussie
+  //     final responseData = jsonDecode(response.body);
+  //     final token =
+  //         responseData['id_token']; // Récupérer le token d'authentification
+  //     if (responseData.containsKey("result")) {
+  //       return Future<dynamic>.value(responseData["result"]);
+  //     } else {
+  //       return Future<dynamic>.value(responseData);
+  //     }
+  //     // Faire ce que tu veux avec le token, par exemple, sauvegarder dans le stockage local
+  //   } else {
+  //     // Gérer les erreurs
+  //     throw Exception('Erreur lors de l\'authentification');
+  //   }
+  // }
+
+  // void _submitForm() {
+  //   if (_formKey.currentState!.validate()) {
+  //     final username = _usernameController.text;
+  //     final password = _passwordController.text;
+  //     authenticate(username, password).then((_) {
+  //       // Naviguer vers une nouvelle page si l'authentification réussit
+  //       Navigator.pushReplacementNamed(context, '/main');
+  //     }).catchError((error) {
+  //       // Afficher un message d'erreur si l'authentification échoue
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Text('Erreur lors de l\'authentification'),
+  //         ),
+  //       );
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +227,7 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: [
           TextFormField(
-            controller: _usernameController,
+            controller: signInController.usernameController,
             decoration: InputDecoration(
               labelText: 'Nom d\'utilisateur',
               labelStyle: const TextStyle(color: Color(0xFF104437)),
@@ -242,7 +249,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 10.0),
           TextFormField(
-            controller: _passwordController,
+            controller: signInController.passController,
             decoration: InputDecoration(
               labelText: 'Mot de passe',
               labelStyle: const TextStyle(color: Color(0xFF104437)),
@@ -276,7 +283,7 @@ class _LoginFormState extends State<LoginForm> {
             ],
           ),
           ElevatedButton.icon(
-            onPressed: _submitForm,
+            onPressed: signInController.signIn(),
             icon: const Icon(Icons.login, color: Colors.white),
             label: const Text(
               'Se connecter',

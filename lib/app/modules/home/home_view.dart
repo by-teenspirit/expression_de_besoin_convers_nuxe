@@ -3,8 +3,22 @@ import 'package:expression_de_besoins_convers/app/modules/home/home_controller.d
 import 'package:get/get.dart';
 import 'package:expression_de_besoins_convers/config/app_colors.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  late HomeController homeController;
+
+  @override
+  void initState() {
+    super.initState();
+    homeController = Get.put(HomeController());
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -187,6 +201,7 @@ class HomeView extends GetView<HomeController> {
             ),
             const SizedBox(height: 15.0),
             const Divider(height: 1, color: AppColors.greyDivider),
+            // homeController.foundContact
             ...List<Widget>.generate(
               10,
               (index) => const Column(

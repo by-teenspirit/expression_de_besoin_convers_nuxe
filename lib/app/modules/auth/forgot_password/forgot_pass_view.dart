@@ -1,8 +1,11 @@
 // COPY QUAD FLORENT
 
+import 'package:expression_de_besoins_convers/config/common_widgets.dart';
+import 'package:expression_de_besoins_convers/utils/image_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'forgot_pass_controller.dart';
 import 'package:expression_de_besoins_convers/config/app_images.dart';
 import 'package:expression_de_besoins_convers/config/app_colors.dart';

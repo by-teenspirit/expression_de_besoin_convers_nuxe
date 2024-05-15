@@ -12,7 +12,7 @@ class SignInController extends GetxController {
   bool showpass = true;
 
   var isLoading = false.obs;
-  TextEditingController emailController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
   bool isValidEmail(String email) {
@@ -21,12 +21,12 @@ class SignInController extends GetxController {
   }
 
   signIn() async {
-    if (emailController.text.isEmpty) {
+    if (usernameController.text.isEmpty) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
           content: Text("Vous devez renseigner votre adresse e-mail.")));
       return;
     }
-    if (!isValidEmail(emailController.text)) {
+    if (!isValidEmail(usernameController.text)) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
           content:
               Text("L'adresse email que vous avez renseignÃ© est invalide.")));
@@ -44,7 +44,7 @@ class SignInController extends GetxController {
         false,
         {},
         {
-          "username": emailController.text,
+          "username": usernameController.text,
           "password": passController.text,
         },
         Get.context!);

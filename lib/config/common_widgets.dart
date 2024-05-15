@@ -1,16 +1,13 @@
+import 'package:expression_de_besoins_convers/config/app_colors.dart';
+import 'package:expression_de_besoins_convers/config/app_images.dart';
+import 'package:expression_de_besoins_convers/utils/image_utils.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:quadient/app/modules/bottom_nav_bar/bottom_bar.dart';
-import 'package:quadient/app/routes/app_pages.dart';
-import 'package:quadient/config/app_colors.dart';
-import 'package:quadient/config/app_images.dart';
-import 'package:quadient/utils/image_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:country_picker/country_picker.dart';
 
 Widget normalCustomButton(
     {required Function callback,
@@ -48,7 +45,7 @@ Widget normalCustomButton(
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: LoadingAnimationWidget.hexagonDots(
-                color: AppColors.colorBackground,
+                color: AppColors.colorPrimary,
                 size: 25.r,
               ),
             ),
@@ -208,149 +205,6 @@ Widget numberField(
   );
 }
 
-Widget phoneTextField(
-    {required TextEditingController controller,
-    required String hintText,
-    int maxlines = 1,
-    required dynamic signUpController,
-    TextInputType inputType = TextInputType.number,
-    required dynamic dynamiccontroller,
-    bool ispasswordField = false,
-    String? icon}) {
-  return Row(
-    children: [
-      SizedBox(
-        width: 90.w,
-        child: TextFormField(
-            maxLength: 10,
-            cursorColor: AppColors.colorPrimary,
-            keyboardType: TextInputType.number,
-            onTap: () {
-              showCountryPicker(
-                context: Get.context!,
-                showPhoneCode:
-                    true, // optional. Shows phone code before the country name.
-                onSelect: (Country country) {
-                  signUpController.countrycode = country.phoneCode;
-                  signUpController.update();
-                },
-              );
-            },
-            style: GoogleFonts.rubik(
-                color: AppColors.black,
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: AppColors.whiteColor,
-              prefixIcon: GestureDetector(
-                  onTap: () {
-                    showCountryPicker(
-                      context: Get.context!,
-                      showPhoneCode:
-                          true, // optional. Shows phone code before the country name.
-                      onSelect: (Country country) {
-                        signUpController.countrycode = country.phoneCode;
-                        signUpController.update();
-                      },
-                    );
-                  },
-                  child: SizedBox(
-                    width: 80.w,
-                    child: Row(
-                      children: [
-                        20.horizontalSpace,
-                        Text("+${signUpController.countrycode}")
-                      ],
-                    ),
-                  )),
-              errorStyle: const TextStyle(height: 0),
-              suffixIcon: GestureDetector(
-                  onTap: () {
-                    showCountryPicker(
-                      context: Get.context!,
-                      showPhoneCode:
-                          true, // optional. Shows phone code before the country name.
-                      onSelect: (Country country) {
-                        signUpController.countrycode = country.phoneCode;
-                        signUpController.update();
-                      },
-                    );
-                  },
-                  child: const Icon(Icons.arrow_drop_down)),
-              counterText: "",
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 90.w, vertical: 13.h),
-              hintText: hintText,
-              // suffixIcon: ImageUtils.imageUtilsInstance
-              //     .showSVGImage(AppImages.arrowDown, height: 1.h),
-              hintStyle: GoogleFonts.rubik(
-                  color: AppColors.hintgreyColor,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 16.sp),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFF898A8D), width: 0.5),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFF898A8D)),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFF898A8D)),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-            )),
-      ),
-      10.horizontalSpace,
-      SizedBox(
-        width: 233.w,
-        child: TextFormField(
-            controller: controller,
-            maxLines: maxlines,
-            cursorColor: AppColors.colorPrimary,
-            keyboardType: inputType,
-            style: GoogleFonts.openSans(
-                color: AppColors.black,
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: AppColors.whiteColor,
-              prefixIcon: icon == null
-                  ? SizedBox(width: 15.w)
-                  : Padding(
-                      padding:
-                          const EdgeInsetsDirectional.only(start: 15, end: 10),
-                      child: ImageUtils.imageUtilsInstance
-                          .showSVGIcon(icon, color: Colors.white),
-                    ),
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
-              prefixIconConstraints: BoxConstraints(maxHeight: 20.h),
-              hintText: hintText,
-              hintStyle: GoogleFonts.rubik(
-                  color: AppColors.hintgreyColor,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 14.sp),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFF898A8D), width: 0.5),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFF898A8D)),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFF898A8D)),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-            )),
-      ),
-    ],
-  );
-}
-
 backButton() {
   return Row(
     children: [
@@ -368,80 +222,6 @@ backButton() {
       ),
     ],
   );
-}
-
-Widget bottomBar() {
-  return Stack(
-    children: [
-      CustomPaint(
-        size: Size(390.w, 117.h),
-        painter: RPSCustomPainter(),
-      ),
-      Positioned(
-        left: 44.w,
-        top: 0,
-        child: GestureDetector(
-          onTap: () {
-            onTabTapped(0);
-          },
-          child: SizedBox(
-            height: 90.h,
-            width: 60.w,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ImageUtils.imageUtilsInstance.showSVGIcon(AppImages.madddle),
-                5.verticalSpace,
-                Text("Classement",
-                    style: GoogleFonts.rubik(
-                        decoration: TextDecoration.none,
-                        fontSize: 10.sp,
-                        color: AppColors.whiteColor))
-              ],
-            ),
-          ),
-        ),
-      ),
-      Positioned(
-          left: (Get.width / 2) - 11.w,
-          top: 33.h,
-          child: GestureDetector(
-            onTap: () {
-              Get.toNamed(Routes.SCAN);
-            },
-            child: ImageUtils.imageUtilsInstance.showSVGIcon(AppImages.plus),
-          )),
-      Positioned(
-        right: 44.w,
-        top: 0,
-        child: GestureDetector(
-          onTap: () {
-            onTabTapped(2);
-          },
-          child: SizedBox(
-            height: 90.h,
-            width: 60.w,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ImageUtils.imageUtilsInstance.showSVGIcon(AppImages.list),
-                5.verticalSpace,
-                Text("Historique",
-                    style: GoogleFonts.rubik(
-                        decoration: TextDecoration.none,
-                        fontSize: 10.sp,
-                        color: AppColors.whiteColor))
-              ],
-            ),
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-onTabTapped(int screenidex) {
-  Get.offAllNamed(Routes.BOTTOM_BAR, arguments: screenidex);
 }
 
 class textField extends StatefulWidget {
@@ -483,7 +263,9 @@ class _textFieldState extends State<textField> {
       cursorColor: AppColors.colorPrimary,
       keyboardType: widget.inputType,
       style: GoogleFonts.rubik(
-          color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+          color: AppColors.greyDivider,
+          fontWeight: FontWeight.w400,
+          fontSize: 14.sp),
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.whiteColor,
@@ -515,7 +297,7 @@ class _textFieldState extends State<textField> {
         prefixIconConstraints: BoxConstraints(maxHeight: 20.h),
         hintText: widget.hintText,
         hintStyle: GoogleFonts.rubik(
-            color: AppColors.hintgreyColor,
+            color: AppColors.greyDivider,
             fontWeight: FontWeight.w300,
             fontSize: 14.sp),
         enabledBorder: const OutlineInputBorder(

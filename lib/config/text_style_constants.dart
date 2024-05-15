@@ -1,4 +1,4 @@
-import 'package:quadient/config/app_colors.dart';
+import 'package:expression_de_besoins_convers/config/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +23,7 @@ TextStyle textWhiteMedium({
 }
 
 TextStyle textgreyregular(
-    {double size = 14, Color color = AppColors.greyColor}) {
+    {double size = 14, Color color = AppColors.greyDivider}) {
   return GoogleFonts.openSans(
       fontSize: size.sp,
       color: color,
@@ -72,7 +72,7 @@ TextStyle textblackregular(
 }
 
 TextStyle textgreymedium(
-    {double size = 14, Color color = AppColors.greyColor}) {
+    {double size = 14, Color color = AppColors.greyDivider}) {
   return GoogleFonts.openSans(
       fontSize: size.sp,
       color: color,
@@ -80,7 +80,8 @@ TextStyle textgreymedium(
       decoration: TextDecoration.none);
 }
 
-TextStyle textgreyBold({double size = 14, Color color = AppColors.greyColor}) {
+TextStyle textgreyBold(
+    {double size = 14, Color color = AppColors.greyDivider}) {
   return GoogleFonts.openSans(
       fontSize: size.sp,
       color: color,

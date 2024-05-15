@@ -181,99 +181,6 @@ Future<CroppedFile?> cropImage(String imagePath) async {
   );
 }
 
-Future<String> saveImage(File imageFile) async {
-  final directory = await getApplicationDocumentsDirectory();
-
-  String generateRandomFileName() {
-    final Random random = Random();
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    return List.generate(10, (index) => chars[random.nextInt(chars.length)])
-        .join();
-  }
-
-  final File localImage =
-      await imageFile.copy('${directory.path}/${generateRandomFileName()}.png');
-  return localImage.path;
-}
-
-void showImageSelectionAlertDialog() {
-  showDialog(
-    context: Get.context!,
-    builder: (BuildContext context) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () async {
-              Get.back();
-              /*var status = await requestPermission();
-              if (status == PermissionStatus.granted) {*/
-              final XFile? image = await pickImage();
-              if (image != null) {
-                final CroppedFile? cropped = await cropImage(image.path);
-                if (cropped != null) {
-                  String path = await saveImage(File(cropped.path));
-                  List<String> wishList = [];
-                  String scannedText = "";
-                  wishList.clear();
-                  final inputImage = InputImage.fromFilePath(path);
-                  final textDecorator = GoogleMlKit.vision.textRecognizer();
-                  RecognizedText recognizedText =
-                      await textDecorator.processImage(inputImage);
-                  await textDecorator.close();
-                  scannedText = '';
-                  for (TextBlock bloc in recognizedText.blocks) {
-                    for (TextLine line in bloc.lines) {
-                      scannedText = scannedText + line.text.toString() + "\n";
-                    }
-                  }
-                  List<String> lines = scannedText.split('\n');
-                  wishList.clear();
-
-// Ajouter chaque ligne Ã  wishList
-                  for (String line in lines) {
-                    if (line.isNotEmpty) {
-                      // VÃ©rifier si la ligne n'est pas vide
-                      wishList.add(line);
-                    }
-                  }
-                  if (scannedText.isNotEmpty) {
-                    Get.toNamed(Routes.SCAN_IMAGE, arguments: {
-                      'imagePath': path,
-                      'wishList': wishList,
-                    });
-                  } else {
-                    ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-                        content: Text(
-                            "Impossible de dÃ©tecter les donnÃ©es de votre image.")));
-                  }
-                }
-              }
-              /*} else {
-                ScaffoldMessenger.of(Get.context!).showSnackBar(
-                    SnackBar(content: Text(
-                        "Merci de bien vouloir autoriser l'accÃ¨s Ã  vos fichiers multimÃ©dias.")));
-              }*/
-            },
-            child: ImageUtils.imageUtilsInstance.showSVGImage(
-              AppImages.galleryselection,
-              height: 131.h,
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Get.back();
-              Get.toNamed(Routes.SCAN);
-            },
-            child: ImageUtils.imageUtilsInstance
-                .showSVGImage(AppImages.cameraselection, height: 131.h),
-          ),
-        ],
-      );
-    },
-  );
-}
-
 void showQuitAlertDialog() {
   showDialog(
     context: Get.context!,
@@ -306,7 +213,7 @@ void showQuitAlertDialog() {
                     callback: () {
                       Get.offAllNamed(Routes.HOME);
                     },
-                    textcolor: AppColors.lightGrey,
+                    textcolor: AppColors.greyDivider,
                     buttonColor: AppColors.whiteColor,
                     title: "Quitter"),
               ),
@@ -360,7 +267,7 @@ void showDeleteAccountDialog(Function callback) {
                     callback: () {
                       Get.back();
                     },
-                    textcolor: AppColors.lightGrey,
+                    textcolor: AppColors.greyDivider,
                     buttonColor: AppColors.whiteColor,
                     title: "Non"),
               ),
@@ -412,7 +319,7 @@ void showDeleteScanDialog(Function callback) {
                     callback: () {
                       Get.back();
                     },
-                    textcolor: AppColors.lightGrey,
+                    textcolor: AppColors.greyDivider,
                     buttonColor: AppColors.whiteColor,
                     title: "Non"),
               ),
@@ -464,7 +371,7 @@ void showClientQuadientDialog() {
               callback: () {
                 Get.offAllNamed(Routes.HOME);
               },
-              textcolor: AppColors.lightGrey,
+              textcolor: AppColors.greyDivider,
               buttonColor: AppColors.whiteColor,
               title: "Accueil"),
         ],
@@ -542,7 +449,7 @@ void showTutoPhoto() {
                   callback: () {
                     Navigator.of(context).pop();
                   },
-                  textcolor: AppColors.lightGrey,
+                  textcolor: AppColors.greyDivider,
                   buttonColor: AppColors.whiteColor,
                   title: "J'ai compris")),
           Row(
@@ -625,7 +532,7 @@ void showErrorPopupCustom(String title, String message) {
               callback: () {
                 Navigator.of(context).pop();
               },
-              textcolor: AppColors.lightGrey,
+              textcolor: AppColors.greyDivider,
               buttonColor: AppColors.whiteColor,
               title: "Ok"),
         ],
