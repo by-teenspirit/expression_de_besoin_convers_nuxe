@@ -65,7 +65,7 @@ class SignInController extends GetxController {
         if (userData != null) {
           try {} catch (error) {}
           isLoading.value = false;
-          MyApp.user = User.fromJson(userData[0]);
+          // MyApp.user = User.fromJson(userData[0]);
           Get.offAndToNamed(Routes.HOME);
         } else {
           isLoading.value = false;

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:expression_de_besoins_convers/app/modules/home/home_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:expression_de_besoins_convers/config/app_colors.dart';
 
@@ -26,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(150.0),
+        preferredSize: const Size.fromHeight(50.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -105,24 +105,25 @@ class _HomeViewState extends State<HomeView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
-                  child: _buildTextFormField('Nom'),
+                  child: _buildTextFormField(
+                      'Nom', homeController.lastnameController),
                 ),
                 const SizedBox(width: 10.0),
                 Expanded(
-                  child: _buildTextFormField('Prénom'),
+                  child: _buildTextFormField(
+                      'Prénom', homeController.firstnameController),
                 ),
                 const SizedBox(width: 10.0),
                 Expanded(
-                  child: _buildTextFormField('Adresse e-mail'),
+                  child: _buildTextFormField(
+                      'Adresse e-mail', homeController.emailController),
                 )
               ],
             ),
             const SizedBox(height: 20.0),
             Center(
               child: ElevatedButton.icon(
-                onPressed: () {
-                  // Action de recherche
-                },
+                onPressed: homeController.getDatas,
                 icon: const Icon(Icons.search),
                 label: const Text('Rechercher',
                     style: TextStyle(
@@ -143,6 +144,9 @@ class _HomeViewState extends State<HomeView> {
                 fontFamily: 'SackersGothicStd',
               ),
             ),
+            Obx(() {
+              return Text(homeController.foundContact.length.toString());
+            }),
             const SizedBox(height: 10.0),
             isSmallScreen
                 ? SingleChildScrollView(
@@ -174,63 +178,53 @@ class _HomeViewState extends State<HomeView> {
         padding: const EdgeInsets.all(30.0),
         child: Column(
           children: <Widget>[
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                    child: Text('Nom',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ))),
-                Expanded(
-                    child: Text('Prénom',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ))),
-                Expanded(
-                    child: Text('Adresse e-mail',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ))),
-                Expanded(
-                    child: Text('Consentement',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ))),
-              ],
-            ),
             const SizedBox(height: 15.0),
             const Divider(height: 1, color: AppColors.greyDivider),
-            // homeController.foundContact
-            ...List<Widget>.generate(
-              10,
-              (index) => const Column(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.0), // Espace vertical
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(child: Text('Jane')),
-                        Expanded(child: Text('Doe')),
-                        Expanded(child: Text('jane.doe@example.com')),
-                        Expanded(child: Text('Non')),
+            Obx(() {
+              if (homeController.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      horizontalMargin: 0,
+                      columns: const [
+                        DataColumn(label: Text('Nom')),
+                        DataColumn(label: Text('Prénom')),
+                        DataColumn(label: Text('Adresse e-mail')),
+                        DataColumn(label: Text('Consentement')),
                       ],
+                      rows: homeController.foundContact.map((contact) {
+                        return DataRow(
+                          cells: [
+                            DataCell(Text(contact[0] ?? '')),
+                            DataCell(Text(contact[1] ?? '')),
+                            DataCell(Text(contact[2] ?? '')),
+                            DataCell(Text(contact[3] ?? 'Non')),
+                          ],
+                        );
+                      }).toList(),
                     ),
                   ),
-                  Divider(height: 1, color: AppColors.greyDivider),
-                ],
-              ),
-            ),
+                );
+              }
+            }),
+            Obx(() {
+              return homeController.foundContact.isEmpty
+                  ? Text("Aucun enregistrement trouvé")
+                  : Text("");
+            }),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildTextFormField(String label) {
+  Widget _buildTextFormField(String label, TextEditingController controller) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: AppColors.darkGreen),

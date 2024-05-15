@@ -60,71 +60,79 @@ Widget normalCustomButton(
   );
 }
 
-/*Widget textField({
-  required TextEditingController controller,
-  required String hintText,
-  int maxlines = 1,
-  TextInputType inputType = TextInputType.text,
-  required dynamic dynamiccontroller,
-  bool ispasswordField = false,
-  String? icon}) {
+// Widget textField(
+//     {required TextEditingController controller,
+//     required String hintText,
+//     int maxlines = 1,
+//     TextInputType inputType = TextInputType.text,
+//     required dynamic dynamiccontroller,
+//     bool ispasswordField = false,
+//     String? icon}) {
+//   // Ajuster le contentPadding selon la prÃ©sence de l'icÃ´ne suffixe
+//   EdgeInsetsGeometry contentPadding =
+//       EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h);
+//   if (!ispasswordField && icon == null) {
+//     // Ajuster contentPadding ici si nÃ©cessaire pour prendre toute la largeur
+//     contentPadding = EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h);
+//   }
 
-  // Ajuster le contentPadding selon la prÃ©sence de l'icÃ´ne suffixe
-  EdgeInsetsGeometry contentPadding = EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h);
-  if (!ispasswordField && icon == null) {
-    // Ajuster contentPadding ici si nÃ©cessaire pour prendre toute la largeur
-    contentPadding = EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h);
-  }
-
-  return TextFormField(
-      controller: controller,
-      maxLines: maxlines,
-      obscureText: ispasswordField ? dynamiccontroller.showpass : false,
-      cursorColor: AppColors.colorPrimary,
-      keyboardType: inputType,
-      style: GoogleFonts.rubik(color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: AppColors.whiteColor,
-        prefixIcon: icon == null ? null : Padding(
-          padding: const EdgeInsetsDirectional.only(start: 15, end: 10),
-          child: ImageUtils.imageUtilsInstance.showSVGIcon(icon, color: Colors.white),
-        ),
-        contentPadding: contentPadding,
-        suffixIcon: !ispasswordField ? null : Padding(
-          padding: const EdgeInsetsDirectional.only(start: 15, end: 15),
-          child: GestureDetector(
-            onTap: () {
-              dynamiccontroller.showpass = !dynamiccontroller.showpass;
-              dynamiccontroller.update();
-            },
-            child: dynamiccontroller.showpass ? ImageUtils.imageUtilsInstance.showSVGIcon(
-                AppImages.hideeye,
-                color: Colors.white,
-                height: 14.h) : ImageUtils.imageUtilsInstance.showSVGIcon(
-                AppImages.eye,
-                color: Colors.white,
-                height: 14.h),
-          ),
-        ),
-        prefixIconConstraints: BoxConstraints(maxHeight: 20.h),
-        hintText: hintText,
-        hintStyle: GoogleFonts.rubik(color: AppColors.hintgreyColor, fontWeight: FontWeight.w300, fontSize: 14.sp),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF898A8D), width: 0.5),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF898A8D)),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF898A8D)),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-      )
-  );
-}*/
+//   return TextFormField(
+//       controller: controller,
+//       maxLines: maxlines,
+//       obscureText: ispasswordField ? dynamiccontroller.showpass : false,
+//       cursorColor: AppColors.colorPrimary,
+//       keyboardType: inputType,
+//       style: GoogleFonts.rubik(
+//           color: AppColors.black, fontWeight: FontWeight.w400, fontSize: 14.sp),
+//       decoration: InputDecoration(
+//         filled: true,
+//         fillColor: AppColors.whiteColor,
+//         prefixIcon: icon == null
+//             ? null
+//             : Padding(
+//                 padding: const EdgeInsetsDirectional.only(start: 15, end: 10),
+//                 child: ImageUtils.imageUtilsInstance
+//                     .showSVGIcon(icon, color: Colors.white),
+//               ),
+//         contentPadding: contentPadding,
+//         suffixIcon: !ispasswordField
+//             ? null
+//             : Padding(
+//                 padding: const EdgeInsetsDirectional.only(start: 15, end: 15),
+//                 child: GestureDetector(
+//                   onTap: () {
+//                     dynamiccontroller.showpass = !dynamiccontroller.showpass;
+//                     dynamiccontroller.update();
+//                   },
+//                   child: dynamiccontroller.showpass
+//                       ? ImageUtils.imageUtilsInstance.showSVGIcon(
+//                           AppImages.hideeye,
+//                           color: Colors.white,
+//                           height: 14.h)
+//                       : ImageUtils.imageUtilsInstance.showSVGIcon(AppImages.eye,
+//                           color: Colors.white, height: 14.h),
+//                 ),
+//               ),
+//         prefixIconConstraints: BoxConstraints(maxHeight: 20.h),
+//         hintText: hintText,
+//         hintStyle: GoogleFonts.rubik(
+//             color: AppColors.hintgreyColor,
+//             fontWeight: FontWeight.w300,
+//             fontSize: 14.sp),
+//         enabledBorder: const OutlineInputBorder(
+//           borderSide: BorderSide(color: Color(0xFF898A8D), width: 0.5),
+//           borderRadius: BorderRadius.all(Radius.circular(5)),
+//         ),
+//         focusedBorder: const OutlineInputBorder(
+//           borderSide: BorderSide(color: Color(0xFF898A8D)),
+//           borderRadius: BorderRadius.all(Radius.circular(5)),
+//         ),
+//         border: const OutlineInputBorder(
+//           borderSide: BorderSide(color: Color(0xFF898A8D)),
+//           borderRadius: BorderRadius.all(Radius.circular(5)),
+//         ),
+//       ));
+// }
 
 Widget numberField(
     BuildContext context, String serial, Function(String) onSerialChange) {

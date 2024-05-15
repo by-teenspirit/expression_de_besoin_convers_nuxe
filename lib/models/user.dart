@@ -102,7 +102,7 @@ class User {
         idAccount: json["id_account"] ?? 0,
         updatedBy: json["updated_by"] ?? 0,
         languageName: json["language_name"] ?? "",
-        activated: json["activated"] ?? false,
+        activated: json["activated"] == 1,
       );
 
   Map<String, dynamic> toJson() => {
