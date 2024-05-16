@@ -22,6 +22,7 @@ class MyApp extends StatefulWidget {
 
   static User? user;
   static String token = "";
+  // ignore: non_constant_identifier_names
   static String api_url = '';
   static bool firebaseInitialized = false;
   static String deeplink = "";
