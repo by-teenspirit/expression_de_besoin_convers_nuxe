@@ -1,14 +1,6 @@
-// COPY QUAD FLORENT
-
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:expression_de_besoins_convers/app/routes/app_pages.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../main.dart';
-import '../../../../models/user.dart';
 import '../../../../services/remote_service.dart';
 
 class SignInController extends GetxController {

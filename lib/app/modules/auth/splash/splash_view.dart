@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'splash_controller.dart';
 import 'package:expression_de_besoins_convers/config/app_colors.dart';
-import 'package:expression_de_besoins_convers/config/app_images.dart';
 
 class OnBoardView extends StatefulWidget {
   const OnBoardView({Key? key}) : super(key: key);
