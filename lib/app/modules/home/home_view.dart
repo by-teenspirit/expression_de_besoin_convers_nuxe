@@ -50,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                     height:
                         kToolbarHeight), // Espacement du haut pour éviter le chevauchement avec la ligne contenant le logo et le container
                 Row(
@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
                       child: Image.asset(
                         "images/logo-nuxe-background.png",
                         fit: BoxFit.contain,
-                        height: 50.0,
+                        height: 60.0,
                       ),
                     ),
                     // Container à droite
@@ -82,7 +82,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 0.0),
+                            horizontal: 8.0, vertical: 5.0),
                         child: TextButton.icon(
                           onPressed: () {
                             // Action de déconnexion
