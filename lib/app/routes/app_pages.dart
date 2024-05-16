@@ -1,8 +1,9 @@
-import 'package:expression_de_besoins_convers/app/modules/auth/forgot_password/forgot_pass_view.dart';
+// COPY QUAD FLORENT
+import 'package:get/get.dart';
 import 'package:expression_de_besoins_convers/app/modules/auth/signIn/sign_in_view.dart';
+import 'package:expression_de_besoins_convers/app/modules/auth/forgot_password/forgot_pass_view.dart';
 import 'package:expression_de_besoins_convers/app/modules/auth/splash/splash_view.dart';
 import 'package:expression_de_besoins_convers/app/modules/home/home_view.dart';
-import 'package:get/get.dart';
 import '../../bindings.dart';
 part 'app_routes.dart';
 
