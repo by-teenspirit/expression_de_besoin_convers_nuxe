@@ -35,6 +35,53 @@ class _HomeViewState extends State<HomeView> {
     final isSmallScreen = screenWidth < 600;
 
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100.0),
+        child: AppBar(
+          elevation: 0.0,
+          actions: [
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 0,
+                    blurRadius: 1,
+                    offset: const Offset(0, 0),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
+                child: TextButton.icon(
+                  onPressed: () {
+                    // Action de déconnexion
+                  },
+                  label: const Text(
+                    'Nom Prénom',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'SackersGothicStd',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  icon: const Icon(Icons.power_settings_new,
+                      color: AppColors.red),
+                ),
+              ),
+            ),
+          ],
+          leading: Image.asset(
+            "images/logo-nuxe-background.png", // Remplacez 'assets/logo.png' par le chemin de votre logo
+            fit: BoxFit.contain,
+            height: 300.0,
+          ),
+        ),
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -50,59 +97,6 @@ class _HomeViewState extends State<HomeView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
-                    height:
-                        kToolbarHeight), // Espacement du haut pour éviter le chevauchement avec la ligne contenant le logo et le container
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Logo à gauche
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Image.asset(
-                        "images/logo-nuxe-background.png",
-                        fit: BoxFit.contain,
-                        height: 50.0,
-                      ),
-                    ),
-                    // Container à droite
-                    Container(
-                      margin: const EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 0,
-                            blurRadius: 1,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 0.0),
-                        child: TextButton.icon(
-                          onPressed: () {
-                            // Action de déconnexion
-                          },
-                          label: const Text(
-                            'Nom Prénom',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'SackersGothicStd',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          icon: const Icon(Icons.power_settings_new,
-                              color: AppColors.red),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
                 const Center(
                   child: Text(
                     'PORTAIL RGPD',
@@ -113,16 +107,17 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10.0),
                 const Center(
                   child: Text(
                     'Recherchez l\'utilisateur concerné',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: 24.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                const SizedBox(height: 50.0),
+                const SizedBox(height: 20.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -161,30 +156,18 @@ class _HomeViewState extends State<HomeView> {
                             horizontal: 40.0, vertical: 15.0)),
                   ),
                 ),
-                const SizedBox(height: 50.0),
-                Row(
-                  children: [
-                    const Text(
-                      'Résultat de recherche : ',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'SackersGothicStd',
-                      ),
-                    ),
-                    Obx(() {
-                      return Text(
-                        homeController.foundContact.length.toString(),
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'SackersGothicStd',
-                        ),
-                      );
-                    }),
-                  ],
+                const SizedBox(height: 20.0),
+                const Text(
+                  'Résultat de recherche',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'SackersGothicStd',
+                  ),
                 ),
-
+                Obx(() {
+                  return Text(homeController.foundContact.length.toString());
+                }),
                 const SizedBox(height: 10.0),
                 isSmallScreen
                     ? SingleChildScrollView(
@@ -203,7 +186,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _buildTableRows() {
     return Container(
       constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.45),
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -239,31 +222,10 @@ class _HomeViewState extends State<HomeView> {
                               child: DataTable(
                                 columnSpacing: 20,
                                 columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'Nom',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  DataColumn(
-                                      label: Text(
-                                    'Prénom',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )),
-                                  DataColumn(
-                                      label: Text(
-                                    'Adresse e-mail',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )),
-                                  DataColumn(
-                                      label: Text(
-                                    'Consentement',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )),
+                                  DataColumn(label: Text('Nom')),
+                                  DataColumn(label: Text('Prénom')),
+                                  DataColumn(label: Text('Adresse e-mail')),
+                                  DataColumn(label: Text('Consentement')),
                                 ],
                                 rows:
                                     homeController.foundContact.map((contact) {

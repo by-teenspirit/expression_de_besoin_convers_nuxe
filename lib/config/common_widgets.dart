@@ -1,5 +1,4 @@
 import 'package:expression_de_besoins_convers/config/app_colors.dart';
-import 'package:expression_de_besoins_convers/config/app_images.dart';
 import 'package:expression_de_besoins_convers/utils/image_utils.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';

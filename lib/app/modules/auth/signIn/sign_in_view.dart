@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:expression_de_besoins_convers/config/app_colors.dart';
+import 'package:expression_de_besoins_convers/config/app_images.dart';
 import 'package:expression_de_besoins_convers/config/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,172 +16,205 @@ class SignInView extends GetView<SignInController> {
       final screenWidth = MediaQuery.of(context).size.width;
       final isSmallScreen = screenWidth < 600;
       return Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                // Logo
-                Image.asset(
-                  'images/logo-nuxe-background.png',
-                  height: 100,
-                ),
-                const SizedBox(height: 30.0),
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              AppImages
+                  .backgroundTrans, // Remplacez 'assets/background.jpg' par le chemin de votre image
+              fit: BoxFit.cover,
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Logo
+                    Image.asset(
+                      'images/logo-nuxe-background.png',
+                      height: 100,
+                    ),
+                    const SizedBox(height: 30.0),
 
-                // Grand bloc
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: isSmallScreen
-                      ? Column(
-                          children: <Widget>[
-                            // Deuxième colonne
-                            Expanded(
-                              child: Image.asset(
-                                'images/connexion-img.png',
-                                fit: BoxFit.cover,
-                                height: 50.0,
-                                width: double.infinity,
-                              ),
-                            ),
-                            // Première colonne
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(40.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    const Text(
-                                      'Portail RGPD',
-                                      style: TextStyle(
-                                        fontSize: 36.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const Text(
-                                      'Se connecter',
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
-                                        decorationThickness: 2.0,
-                                      ),
-                                    ),
-                                    LoginForm(),
-                                    const SizedBox(height: 10.0),
-                                    Row(
+                    // Grand bloc
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(
+                                0.3), // Couleur de l'ombre avec opacité
+                            spreadRadius: 3, // Rayon de propagation de l'ombre
+                            blurRadius: 10, // Rayon de flou de l'ombre
+                            offset: const Offset(0,
+                                3), // Décalage de l'ombre par rapport au conteneur
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white,
+                      ),
+                      child: isSmallScreen
+                          ? Column(
+                              children: <Widget>[
+                                // Deuxième colonne
+                                Expanded(
+                                  child: Image.asset(
+                                    'images/connexion-img.png',
+                                    fit: BoxFit.cover,
+                                    height: 50.0,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                                // Première colonne
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(40.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Checkbox(
-                                          value: false,
-                                          onChanged: (value) {
-                                            // Action pour la checkbox "Se souvenir de moi"
-                                          },
+                                        const Text(
+                                          'Portail RGPD',
+                                          style: TextStyle(
+                                            fontSize: 36.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                        const Text('Se souvenir de moi'),
+                                        const Text(
+                                          'Se connecter',
+                                          style: TextStyle(
+                                            fontSize: 24.0,
+                                            fontWeight: FontWeight.bold,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationThickness: 2.0,
+                                          ),
+                                        ),
+                                        LoginForm(),
+                                        const SizedBox(height: 10.0),
+                                        Row(
+                                          children: <Widget>[
+                                            Checkbox(
+                                              value: false,
+                                              onChanged: (value) {
+                                                // Action pour la checkbox "Se souvenir de moi"
+                                              },
+                                            ),
+                                            const Text('Se souvenir de moi'),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 20.0),
+                                        Center(
+                                          child: ElevatedButton.icon(
+                                            onPressed: () {
+                                              // Action de se connecter
+                                            },
+                                            icon: const Icon(Icons.login),
+                                            label: const Text('Se connecter'),
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    const Color(0xFF104437),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 40.0,
+                                                        vertical: 15.0)),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(height: 20.0),
-                                    Center(
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          // Action de se connecter
-                                        },
-                                        icon: const Icon(Icons.login),
-                                        label: const Text('Se connecter'),
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                const Color(0xFF104437),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 40.0,
-                                                vertical: 15.0)),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        )
-                      : Row(
-                          children: <Widget>[
-                            // Première colonne
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.all(40.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    const Text(
-                                      'PORTAIL RGPD',
-                                      style: TextStyle(
-                                        fontSize: 36.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'SackersGothicStd',
-                                      ),
-                                    ),
-                                    const Text(
-                                      'Se connecter',
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'SackersGothicStd',
-                                        decoration: TextDecoration.underline,
-                                        decorationThickness: 2.0,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20.0),
-                                    LoginForm()
-                                    // Column(
-                                    //   children: [
-                                    //     Row(
-                                    //       children: [
-                                    //         const Text("Nom d’utilisateur"),
-                                    //         textField(
-                                    //           controller: TextEditingController(
-                                    //               text: "test"),
-                                    //           hintText: 'nomprenom@exemple.com',
-                                    //           //dynamiccontroller: controller,
-                                    //           inputType:
-                                    //               TextInputType.emailAddress,
-                                    //         ),
-                                    //         // TextFormField(
-                                    //         //   controller: signInController.usernameController,
-                                    //         //   keyboardType:
-                                    //         //       TextInputType.emailAddress,
-                                    //         //   decoration: const InputDecoration(
-                                    //         //     hintText: 'Email',
-                                    //         //     //dynamiccontroller: controller,
-                                    //         //   ),
-                                    //         // ),
-                                    //       ],
-                                    //     ),
-                                    //   ],
-                                    // )
+                              ],
+                            )
+                          : Row(
+                              children: <Widget>[
+                                // Première colonne
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(40.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        const Text(
+                                          'PORTAIL RGPD',
+                                          style: TextStyle(
+                                            fontSize: 36.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'SackersGothicStd',
+                                          ),
+                                        ),
+                                        const Text(
+                                          'Se connecter',
+                                          style: TextStyle(
+                                            fontSize: 24.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'SackersGothicStd',
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationThickness: 2.0,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 50.0),
+                                        LoginForm()
+                                        // Column(
+                                        //   children: [
+                                        //     Row(
+                                        //       children: [
+                                        //         const Text("Nom d’utilisateur"),
+                                        //         textField(
+                                        //           controller: TextEditingController(
+                                        //               text: "test"),
+                                        //           hintText: 'nomprenom@exemple.com',
+                                        //           //dynamiccontroller: controller,
+                                        //           inputType:
+                                        //               TextInputType.emailAddress,
+                                        //         ),
+                                        //         // TextFormField(
+                                        //         //   controller: signInController.usernameController,
+                                        //         //   keyboardType:
+                                        //         //       TextInputType.emailAddress,
+                                        //         //   decoration: const InputDecoration(
+                                        //         //     hintText: 'Email',
+                                        //         //     //dynamiccontroller: controller,
+                                        //         //   ),
+                                        //         // ),
+                                        //       ],
+                                        //     ),
+                                        //   ],
+                                        // )
 
-                                    // LoginForm(),
-                                  ],
+                                        // LoginForm(),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
 
-                            // Deuxième colonne
-                            Expanded(
-                              child: Image.asset(
-                                'images/connexion-img.png', // Remplacez 'assets/image.jpg' par le chemin de votre image
-                                fit: BoxFit.cover,
-                              ),
+                                // Deuxième colonne
+                                Expanded(
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(
+                                          10.0), // Arrondi en haut à droite
+                                      bottomRight: Radius.circular(
+                                          10.0), // Arrondi en bas à droite
+                                    ),
+                                    child: Image.asset(
+                                      'images/connexion-img.png',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       );
     });
@@ -261,7 +294,8 @@ class _LoginFormState extends State<LoginForm> {
           TextFormField(
             controller: signInController.usernameController,
             decoration: InputDecoration(
-              labelText: 'Nom d\'utilisateur',
+              labelText: 'Adresse e-mail',
+              hintText: 'Saisissez votre adresse e-mail',
               labelStyle: const TextStyle(color: Color(0xFF104437)),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -278,12 +312,17 @@ class _LoginFormState extends State<LoginForm> {
               }
               return null;
             },
+            onFieldSubmitted: (_) {
+              // Appeler signIn lorsque la touche "Entrée" est pressée
+              signInController.signIn();
+            },
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 20.0),
           TextFormField(
             controller: signInController.passController,
             decoration: InputDecoration(
               labelText: 'Mot de passe',
+              hintText: '********',
               labelStyle: const TextStyle(color: Color(0xFF104437)),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -301,8 +340,12 @@ class _LoginFormState extends State<LoginForm> {
               return null;
             },
             obscureText: true,
+            onFieldSubmitted: (_) {
+              // Appeler signIn lorsque la touche "Entrée" est pressée
+              signInController.signIn();
+            },
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 20.0),
           Row(
             children: <Widget>[
               Checkbox(
@@ -314,6 +357,7 @@ class _LoginFormState extends State<LoginForm> {
               const Text('Se souvenir de moi'),
             ],
           ),
+          const SizedBox(height: 20.0),
           ElevatedButton.icon(
             onPressed: signInController.signIn,
             icon: const Icon(Icons.login, color: Colors.white),
@@ -325,9 +369,10 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF104437),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 40.0, vertical: 15.0)),
+              backgroundColor: const Color(0xFF104437),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+            ),
           ),
         ],
       ),

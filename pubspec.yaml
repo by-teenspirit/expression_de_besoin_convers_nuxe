@@ -51,6 +51,10 @@ flutter:
     - images/background-convers.jpg
     - images/background-convers-transparent.png
     - images/test-background.jpg
+    - images/logo-nuxe-blanc.png
+    - images/background-convers-transparent-tiny.png
+    - images/background-test.jpg
+    - images/background-transparent.png
 
   fonts:
     - family: SackersGothicStd

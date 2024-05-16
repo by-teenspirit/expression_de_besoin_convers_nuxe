@@ -1,19 +1,13 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:expression_de_besoins_convers/app/routes/app_pages.dart';
 import 'package:expression_de_besoins_convers/config/app_colors.dart';
-import 'package:expression_de_besoins_convers/config/app_images.dart';
 import 'package:expression_de_besoins_convers/config/common_widgets.dart';
-import 'package:expression_de_besoins_convers/utils/image_utils.dart';
-import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void showErrorAlertDialog(String message) {
   showDialog(
@@ -374,126 +368,6 @@ void showClientQuadientDialog() {
               textcolor: AppColors.greyDivider,
               buttonColor: AppColors.whiteColor,
               title: "Accueil"),
-        ],
-      );
-    },
-  );
-}
-
-Future<void> maybeShowTutoPhoto() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool dontShowAgain = prefs.getBool('dontShowTutoPhoto') ?? false;
-  //if (!dontShowAgain) {
-  showTutoPhoto();
-  //}
-}
-
-void showTutoPhoto() {
-  bool dontShowAgain = false;
-  showDialog(
-    context: Get.context!,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Prenez une photo",
-                style: GoogleFonts.quicksand(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.sp,
-                    color: AppColors.whiteColor)),
-          ],
-        ),
-        backgroundColor: const Color(0xFFE14200),
-        content: SingleChildScrollView(
-            // Ajoute un dÃ©filement au contenu
-            child: Column(children: [
-          Text(
-            "Prenez une photo du cachet sur lâ€™enveloppe.\n\nIl se trouve gÃ©nÃ©ralement en haut Ã  droite, avec le tarif.",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.rubik(
-                color: AppColors.whiteColor,
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp),
-          ),
-          10.verticalSpace,
-          Image.asset("assets/images/phototuto1.png", fit: BoxFit.fitWidth),
-          10.verticalSpace,
-          Text(
-            "Rendu attendu pour permettre une lecture claire du numÃ©ro de SIRET et du bureau dâ€™attache :",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.rubik(
-                color: AppColors.whiteColor,
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp),
-          ),
-          10.verticalSpace,
-          Image.asset("assets/images/phototuto2.png", fit: BoxFit.fitWidth),
-          10.verticalSpace,
-          Text(
-            "Rappel : Les timbres Quadient commencent par H ou S. Merci de ne pas les scanner.",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.rubik(
-                color: AppColors.whiteColor,
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp),
-          ),
-        ])),
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: normalCustomButton(
-                  callback: () {
-                    Navigator.of(context).pop();
-                  },
-                  textcolor: AppColors.greyDivider,
-                  buttonColor: AppColors.whiteColor,
-                  title: "J'ai compris")),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Theme(
-                  data: ThemeData(
-                    checkboxTheme: CheckboxThemeData(
-                      fillColor: MaterialStateProperty.all(Colors.white),
-                      checkColor:
-                          MaterialStateProperty.all(AppColors.colorPrimary),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.transparent),
-                      side: BorderSide(
-                          color:
-                              Colors.white), // DÃ©finit la couleur du contour
-                    ),
-                  ),
-                  child: Checkbox(
-                    checkColor: AppColors.colorPrimary, // Couleur de la coche
-                    activeColor: Colors.white,
-                    value: dontShowAgain,
-                    onChanged: (bool? value) {
-                      dontShowAgain = value!;
-                      if (value != null) {
-                        // Enregistrez la prÃ©fÃ©rence de l'utilisateur
-                        SharedPreferences.getInstance().then(
-                          (prefs) {
-                            prefs.setBool('dontShowTutoPhoto', value);
-                          },
-                        );
-                        (context as Element).markNeedsBuild();
-                      }
-                    },
-                  )),
-              Expanded(
-                child: Text("Ne plus afficher ce message",
-                    style: GoogleFonts.rubik(color: AppColors.whiteColor)),
-              )
-            ],
-          ),
         ],
       );
     },

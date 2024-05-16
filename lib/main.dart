@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Quadient',
+          title: 'Portail RGPD',
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           initialBinding: AppBindings(),

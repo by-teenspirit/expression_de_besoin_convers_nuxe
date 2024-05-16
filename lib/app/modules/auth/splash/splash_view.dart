@@ -24,20 +24,22 @@ class _OnBoardViewState extends State<OnBoardView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "images/logo-nuxe-background.png",
+                "images/logo-nuxe-blanc.png",
                 fit: BoxFit.contain,
-                height: 300.0,
+                height: 100.0,
               ),
+              const SizedBox(height: 50.0),
               const Text(
                 'PORTAIL RGPD',
                 style: TextStyle(
-                  fontSize: 36.0,
+                  fontSize: 80.0,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'SackersGothicStd',
+                  color: Colors.white,
                 ),
               ),
               80.verticalSpace,
-              LoadingAnimationWidget.dotsTriangle(
+              LoadingAnimationWidget.horizontalRotatingDots(
                 color: AppColors.whiteColor,
                 size: 55.r,
               ),

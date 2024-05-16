@@ -1,18 +1,17 @@
 // COPY QUAD FLORENT
 
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:expression_de_besoins_convers/main.dart';
 
-import 'package:package_info_plus/package_info_plus.dart';
+// import 'package:package_info_plus/package_info_plus.dart';
 /*import 'package:package_info_plus_web/package_info_plus_web.dart';
 import 'package:package_info_plus_platform_interface/package_info_data.dart';*/
-import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
-import 'package:dio/dio.dart' as Dioo;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class RemoteService {
   String fileSize = "JPG, PNG, PDF";
@@ -37,8 +36,8 @@ class RemoteService {
       BuildContext ctx) async {
     const storage = FlutterSecureStorage();
     String? jwt = await storage.read(key: "jwt");
-    String version = "";
-    String buildNumber = "";
+    // String version = "";
+    // String buildNumber = "";
     try {
       if (kIsWeb) {
         /*PackageInfoPlugin packageInfo = PackageInfoPlugin();
@@ -46,9 +45,9 @@ class RemoteService {
         version = packageInfoData.version;
         buildNumber = packageInfoData.buildNumber;*/
       } else {
-        PackageInfo packageInfo = await PackageInfo.fromPlatform();
-        version = packageInfo.version;
-        buildNumber = packageInfo.buildNumber;
+        // PackageInfo packageInfo = await PackageInfo.fromPlatform();
+        // version = packageInfo.version;
+        // buildNumber = packageInfo.buildNumber;
       }
     } catch (err1) {
       print(err1);
@@ -125,25 +124,31 @@ class RemoteService {
           try {
             var jsonData = jsonDecode(decodedResponse);
             if (jsonData.containsKey("detail")) {
+              // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(ctx)
                   .showSnackBar(SnackBar(content: Text(jsonData["detail"])));
             } else if (jsonData.containsKey("errorMessage")) {
+              // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(ctx).showSnackBar(
                   SnackBar(content: Text(jsonData["errorMessage"])));
             } else if (jsonData.containsKey("title")) {
+              // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(ctx)
                   .showSnackBar(SnackBar(content: Text(jsonData["title"])));
             } else if (jsonData.containsKey("result") &&
                 isArrayContainingMessage(jsonData["result"])) {
+              // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(ctx).showSnackBar(
                   SnackBar(content: Text(jsonData["result"][0]["message"])));
             } else {
-              ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
                   content: Text(
                       "Une erreur s'est produit lors de la communication avec le serveur.")));
             }
           } catch (err) {
-            ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+            // ignore: use_build_context_synchronously
+            ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
                 content: Text(
                     "Une erreur s'est produit lors de la communication avec le serveur.")));
           }
@@ -152,14 +157,16 @@ class RemoteService {
         }
       } catch (error) {
         print(error);
-        ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
             content: Text(
                 "Une erreur s'est produit lors du dÃ©codage des donnÃ©es.")));
         return Future<dynamic>.value(null);
       }
     } else {
-      ScaffoldMessenger.of(ctx).showSnackBar(
-          SnackBar(content: Text("Erreur de condition dans la requÃªte.")));
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
+          content: Text("Erreur de condition dans la requÃªte.")));
       return Future<dynamic>.value(null);
     }
   }
