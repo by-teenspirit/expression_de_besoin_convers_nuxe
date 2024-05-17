@@ -1,4 +1,8 @@
+import 'package:expression_de_besoins_convers/app/routes/app_pages.dart';
+import 'package:expression_de_besoins_convers/main.dart';
+import 'package:expression_de_besoins_convers/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 import '../../../services/remote_service.dart';
@@ -12,9 +16,16 @@ class HomeController extends GetxController {
 
   final isLoading = false.obs;
 
+  disconnect() async {
+    const storage = FlutterSecureStorage();
+    await storage.delete(key: "jwt");
+    Get.offAllNamed(Routes.SIGN_IN);
+  }
+
   getDatas() async {
     isLoading.value = true;
     foundContact.clear();
+    print(MyApp.user);
 
     List<List<String>> listStr = [];
 

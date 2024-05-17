@@ -1,3 +1,5 @@
+import 'package:expression_de_besoins_convers/main.dart';
+import 'package:expression_de_besoins_convers/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:expression_de_besoins_convers/app/routes/app_pages.dart';
@@ -56,11 +58,9 @@ class SignInController extends GetxController {
             {},
             {},
             Get.context!);
-        print(userData);
         if (userData != null) {
-          try {} catch (error) {}
           isLoading.value = false;
-          // MyApp.user = User.fromJson(userData[0]);
+          MyApp.user = User.fromJson(userData[0]);
           Get.offAndToNamed(Routes.HOME);
         } else {
           isLoading.value = false;

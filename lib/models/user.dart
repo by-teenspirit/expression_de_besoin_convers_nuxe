@@ -4,134 +4,92 @@
 
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
 String userToJson(User data) => json.encode(data.toJson());
 
 class User {
+  int id;
   String firstname;
-  int idCivility;
-  String langKey;
-  String contactCivilityMnemonic;
-  int idLanguage;
-  int deletedBy;
-  DateTime createdAt;
+  String lastname;
+  String email;
+  bool activated;
+
   String resetKey;
   String password;
   String activationKey;
   DateTime resetDate;
-  DateTime updatedAt;
-  String accountName;
-  int idRole;
-  int idType;
-  int id;
-  int idCurrency;
-  String email;
-  String currencyName;
-  int createdBy;
-  DateTime deletedAt;
-  String lastname;
-  int deleted;
-  int idAccount;
-  int updatedBy;
-  String languageName;
-  bool activated;
 
-  User({
-    required this.firstname,
-    required this.idCivility,
-    required this.langKey,
-    required this.contactCivilityMnemonic,
-    required this.idLanguage,
-    required this.deletedBy,
-    required this.createdAt,
-    required this.resetKey,
-    required this.password,
-    required this.activationKey,
-    required this.resetDate,
-    required this.updatedAt,
-    required this.accountName,
-    required this.idRole,
-    required this.idType,
-    required this.id,
-    required this.idCurrency,
-    required this.email,
-    required this.currencyName,
-    required this.createdBy,
-    required this.deletedAt,
-    required this.lastname,
-    required this.deleted,
-    required this.idAccount,
-    required this.updatedBy,
-    required this.languageName,
-    required this.activated,
-  });
+  User(
+      {required this.firstname,
+      required this.resetKey,
+      required this.password,
+      required this.activationKey,
+      required this.resetDate,
+      required this.id,
+      required this.email,
+      required this.lastname,
+      required this.activated});
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        firstname: json["firstname"] ?? "",
-        idCivility: json["id_civility"] ?? 0,
-        langKey: json["lang_key"] ?? "",
-        contactCivilityMnemonic: json["contact_civility_mnemonic"] ?? "",
-        idLanguage: json["id_language"] ?? 0,
-        deletedBy: json["deleted_by"] ?? 0,
-        createdAt: json["created_at"] == null
-            ? DateTime.fromMillisecondsSinceEpoch(0)
-            : DateTime.parse(json["created_at"]),
-        resetKey: json["reset_key"] ?? "",
-        password: json["password"] ?? "",
-        activationKey: json["activation_key"] ?? "",
-        resetDate: json["reset_date"] == null
-            ? DateTime.fromMillisecondsSinceEpoch(0)
-            : DateTime.parse(json["reset_date"]),
-        updatedAt: json["updated_at"] == null
-            ? DateTime.fromMillisecondsSinceEpoch(0)
-            : DateTime.parse(json["updated_at"]),
-        accountName: json["account_name"] ?? "",
-        idRole: json["id_role"] ?? 0,
-        idType: json["id_type"] ?? 0,
-        id: json["id"] ?? 0,
-        idCurrency: json["id_currency"] ?? 0,
-        email: json["email"] ?? "",
-        currencyName: json["currency_name"] ?? "",
-        createdBy: json["created_by"] ?? 0,
-        deletedAt: json["deleted_at"] == null
-            ? DateTime.fromMillisecondsSinceEpoch(0)
-            : DateTime.parse(json["deleted_at"]),
-        lastname: json["lastname"] ?? "",
-        deleted: json["deleted"] ?? 0,
-        idAccount: json["id_account"] ?? 0,
-        updatedBy: json["updated_by"] ?? 0,
-        languageName: json["language_name"] ?? "",
-        activated: json["activated"] == 1,
-      );
+  factory User.fromJson(Map<String, dynamic> json) {
+    final firstname = json['firstname']; // dynamic
+    final resetKey = json['reset_key']; // dynamic
+    final password = json['password']; // dynamic
+    final activationKey = json['activation_key']; // dynamic
+    final id = json['id']; // dynamic
+    final email = json['email']; // dynamic
+    final lastname = json['lastname']; // dynamic
+    final activated = json['activated'] == 1; // dynamic
+
+    final user = User(
+        firstname: firstname ?? "",
+        resetKey: resetKey ?? "",
+        password: password ?? "",
+        activationKey: activationKey ?? "",
+        resetDate: DateTime.fromMillisecondsSinceEpoch(0),
+        id: id ?? 0,
+        email: email ?? "",
+        lastname: lastname ?? "",
+        activated: activated);
+
+    User.saveUser(user);
+    return user;
+  }
 
   Map<String, dynamic> toJson() => {
         "firstname": firstname,
-        "id_civility": idCivility,
-        "lang_key": langKey,
-        "contact_civility_mnemonic": contactCivilityMnemonic,
-        "id_language": idLanguage,
-        "deleted_by": deletedBy,
-        "created_at": createdAt.toIso8601String(),
         "reset_key": resetKey,
         "password": password,
         "activation_key": activationKey,
         "reset_date": resetDate.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "account_name": accountName,
-        "id_role": idRole,
-        "id_type": idType,
         "id": id,
-        "id_currency": idCurrency,
         "email": email,
-        "currency_name": currencyName,
-        "created_by": createdBy,
-        "deleted_at": deletedAt.toIso8601String(),
         "lastname": lastname,
-        "deleted": deleted,
-        "id_account": idAccount,
-        "updated_by": updatedBy,
-        "language_name": languageName,
         "activated": activated,
       };
+
+  // Initialisation de FlutterSecureStorage
+  static final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
+
+  // Méthode statique pour sauvegarder un utilisateur
+  static Future<void> saveUser(User user) async {
+    String userJson = userToJson(user);
+    await _secureStorage.write(key: 'user', value: userJson);
+  }
+
+  // Méthode statique pour récupérer un utilisateur
+  static Future<User?> getUser() async {
+    String? userJson = await _secureStorage.read(key: 'user');
+    if (userJson != null) {
+      return userFromJson(userJson);
+    }
+    return null;
+  }
+
+  // Méthode statique pour supprimer un utilisateur
+  static Future<void> deleteUser() async {
+    await _secureStorage.delete(key: 'user');
+  }
 }

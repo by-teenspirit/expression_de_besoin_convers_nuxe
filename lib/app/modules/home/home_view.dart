@@ -1,6 +1,10 @@
 import 'package:expression_de_besoins_convers/app/modules/home/home_controller.dart';
+import 'package:expression_de_besoins_convers/app/routes/app_pages.dart';
 import 'package:expression_de_besoins_convers/config/app_images.dart';
+import 'package:expression_de_besoins_convers/main.dart';
+import 'package:expression_de_besoins_convers/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:expression_de_besoins_convers/config/app_colors.dart';
 
@@ -20,6 +24,14 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     homeController = Get.put(HomeController());
     searchController = TextEditingController();
+    _loadUser();
+  }
+
+  void _loadUser() async {
+    User? user = await User.getUser();
+    setState(() {
+      MyApp.user = user;
+    });
   }
 
   @override
@@ -84,12 +96,14 @@ class _HomeViewState extends State<HomeView> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 5.0),
                         child: TextButton.icon(
-                          onPressed: () {
-                            // Action de déconnexion
+                          onPressed: () async {
+                            homeController.disconnect();
                           },
-                          label: const Text(
-                            'Nom Prénom',
-                            style: TextStyle(
+                          label: Text(
+                            (MyApp?.user?.firstname ?? "") +
+                                " " +
+                                (MyApp?.user?.lastname ?? ""),
+                            style: const TextStyle(
                               color: Colors.black,
                               fontFamily: 'SackersGothicStd',
                               fontWeight: FontWeight.w700,

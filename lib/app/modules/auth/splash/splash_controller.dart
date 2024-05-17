@@ -24,7 +24,7 @@ class OnBoardController extends GetxController {
       const storage = FlutterSecureStorage();
       var accountData = await RemoteService()
           .request("GET", "/api/account", true, {}, {}, Get.context!);
-      print(accountData);
+
       if (accountData != null) {
         var userData = await RemoteService().request(
             "GET",
@@ -33,7 +33,7 @@ class OnBoardController extends GetxController {
             {},
             {},
             Get.context!);
-        print(userData);
+
         if (userData != null) {
           try {} catch (error) {
             print("error");
