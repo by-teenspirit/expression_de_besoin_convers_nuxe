@@ -1,8 +1,11 @@
 // COPY QUAD FLORENT
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 import 'app_bindings.dart';
@@ -40,13 +43,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> loadAsset(BuildContext context) async {
-    /*final jsonString = await DefaultAssetBundle.of(context)
+    print("LOAD ASSETS");
+    final jsonString = await DefaultAssetBundle.of(context)
         .loadString('assets/config/settings.json');
     final dynamic jsonMap = jsonDecode(jsonString);
-    const storage = FlutterSecureStorage();*/
-    //print("APIURL: "+jsonMap["api_url"].toString());
-    MyApp.api_url =
-        "https://nuxe.v2.back.dev.backside.fr"; //jsonMap["api_url"].toString();
+    print("APIURL: " + jsonMap["api_url"].toString());
+    MyApp.api_url = jsonMap["api_url"].toString();
+    // MyApp.api_url =
+    //     "https://nuxe.v2.back.dev.backside.fr"; //jsonMap["api_url"].toString();
   }
 
   @override

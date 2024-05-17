@@ -30,23 +30,33 @@ class HomeController extends GetxController {
     List<List<String>> listStr = [];
 
     var condition = "";
-    if (firstnameController.text.isNotEmpty) {
-      condition = "contact.firstname like '%${firstnameController.text}%'";
-    }
+    var sort = "contact.lastname,asc";
+
     if (lastnameController.text.isNotEmpty) {
+      condition = "contact.lastname like '%${lastnameController.text}%'";
+      sort = "contact.lastname,contact.firstname";
+    }
+
+    if (firstnameController.text.isNotEmpty) {
       condition = condition +
           (condition.isNotEmpty ? " AND " : "") +
-          "contact.lastname like '%${lastnameController.text}%'";
+          "contact.firstname like '%${firstnameController.text}%'";
+      sort = "contact.firstname,contact.lastname";
     }
+
     if (emailController.text.isNotEmpty) {
       condition = condition +
           (condition.isNotEmpty ? " AND " : "") +
           "contact.email like '%${emailController.text}%'";
+      sort = "contact.email,asc";
     }
 
     var response = await RemoteService().request(
         "GET",
-        "/api/v2/generic/contact?page=1&size=999&condition=" + condition,
+        "/api/v2/generic/contact?page=1&size=999&condition=" +
+            condition +
+            "&sort=" +
+            sort,
         true,
         {},
         {},

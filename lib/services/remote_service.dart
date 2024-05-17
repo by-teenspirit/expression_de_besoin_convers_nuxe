@@ -67,7 +67,7 @@ class RemoteService {
         } else {
           header.addAll(customHeaders);
         }
-        var uri = Uri.parse(MyApp.api_url + endpoint);
+        var uri = Uri.parse(Uri.encodeFull(MyApp.api_url + endpoint));
         print(uri);
         //print(header);
         //print(postData);
@@ -92,7 +92,7 @@ class RemoteService {
               await http.post(uri, headers: header, body: jsonEncode(postData));
         }
         print(response.statusCode);
-        print(response.body);
+        // print(response.body);
         var decodedResponse = utf8.decode(response.body.codeUnits);
         if (response.statusCode == 200 ||
             response.statusCode == 201 ||

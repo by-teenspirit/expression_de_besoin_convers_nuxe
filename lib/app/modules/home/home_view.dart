@@ -283,8 +283,8 @@ class _HomeViewState extends State<HomeView> {
                                     homeController.foundContact.map((contact) {
                                   return DataRow(
                                     cells: [
-                                      DataCell(Text(contact[0] ?? '')),
                                       DataCell(Text(contact[1] ?? '')),
+                                      DataCell(Text(contact[0] ?? '')),
                                       DataCell(Text(contact[2] ?? '')),
                                       DataCell(Text(contact[3] ?? 'Non')),
                                     ],

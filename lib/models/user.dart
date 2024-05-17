@@ -53,8 +53,6 @@ class User {
         email: email ?? "",
         lastname: lastname ?? "",
         activated: activated);
-
-    User.saveUser(user);
     return user;
   }
 

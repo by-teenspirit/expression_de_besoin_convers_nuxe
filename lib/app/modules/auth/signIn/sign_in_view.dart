@@ -1,4 +1,6 @@
+import 'package:expression_de_besoins_convers/config/app_colors.dart';
 import 'package:expression_de_besoins_convers/config/app_images.dart';
+import 'package:expression_de_besoins_convers/services/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:expression_de_besoins_convers/app/modules/auth/signIn/sign_in_controller.dart';
 import 'package:get/get.dart';
@@ -95,7 +97,13 @@ class SignInView extends GetView<SignInController> {
                                             Checkbox(
                                               value: false,
                                               onChanged: (value) {
-                                                // Action pour la checkbox "Se souvenir de moi"
+                                                UserSettings.saveRememberMe(
+                                                    value ?? false,
+                                                    signInController
+                                                        .usernameController
+                                                        .text,
+                                                    signInController
+                                                        .passController.text);
                                               },
                                             ),
                                             const Text('Se souvenir de moi'),
@@ -345,11 +353,11 @@ class _LoginFormState extends State<LoginForm> {
           Row(
             children: <Widget>[
               Checkbox(
-                value: false, // Remplacez par une variable si nécessaire
-                onChanged: (value) {
-                  // Action pour la checkbox "Se souvenir de moi"
-                },
-              ),
+                  value: signInController.rememberMe,
+                  onChanged: (value) {
+                    signInController.saveUserSettings(value);
+                  },
+                  activeColor: AppColors.darkGreen),
               const Text('Se souvenir de moi'),
             ],
           ),

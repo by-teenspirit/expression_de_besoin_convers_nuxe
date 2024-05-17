@@ -39,6 +39,7 @@ class OnBoardController extends GetxController {
             print("error");
           }
           MyApp.user = User.fromJson(userData[0]);
+          await User.saveUser(MyApp.user!);
           Get.offAndToNamed(Routes.HOME);
         } else {
           await storage.delete(key: "jwt");
