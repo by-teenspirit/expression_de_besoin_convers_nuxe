@@ -30,33 +30,26 @@ class HomeController extends GetxController {
     List<List<String>> listStr = [];
 
     var condition = "";
-    var sort = "contact.lastname,asc";
 
     if (lastnameController.text.isNotEmpty) {
       condition = "contact.lastname like '%${lastnameController.text}%'";
-      sort = "contact.lastname,contact.firstname";
     }
 
     if (firstnameController.text.isNotEmpty) {
       condition = condition +
           (condition.isNotEmpty ? " AND " : "") +
           "contact.firstname like '%${firstnameController.text}%'";
-      sort = "contact.firstname,contact.lastname";
     }
 
     if (emailController.text.isNotEmpty) {
       condition = condition +
           (condition.isNotEmpty ? " AND " : "") +
           "contact.email like '%${emailController.text}%'";
-      sort = "contact.email,asc";
     }
 
     var response = await RemoteService().request(
         "GET",
-        "/api/v2/generic/contact?page=1&size=999&condition=" +
-            condition +
-            "&sort=" +
-            sort,
+        "/api/v2/generic/contact?page=1&size=999&condition=" + condition,
         true,
         {},
         {},
@@ -71,6 +64,56 @@ class HomeController extends GetxController {
         ]);
       }
     }
+
+    condition = condition.replaceAll("contact", "contact_convers");
+    var responseConversContact = await RemoteService().request(
+        "GET",
+        "/api/v2/generic/contact_convers?page=1&size=999&condition=" +
+            condition,
+        true,
+        {},
+        {},
+        Get.context!);
+    if (responseConversContact is List<dynamic>) {
+      for (var item in responseConversContact) {
+        listStr.add([
+          item["firstname"],
+          item["lastname"],
+          item["email"].toString(),
+          "Oui"
+        ]);
+      }
+    }
+
+    listStr.sort((a, b) {
+      if (lastnameController.text.isNotEmpty) {
+        int value = a[1].toLowerCase().compareTo(b[1].toLowerCase());
+        if (value != 0) {
+          return value;
+        }
+      }
+
+      if (firstnameController.text.isNotEmpty) {
+        int value = a[0].toLowerCase().compareTo(b[0].toLowerCase());
+        if (value != 0) {
+          return value;
+        } else {
+          return a[1].toLowerCase().compareTo(b[1].toLowerCase());
+        }
+      }
+
+      if (emailController.text.isNotEmpty) {
+        int value = a[2].toLowerCase().compareTo(b[2].toLowerCase());
+        if (value != 0) {
+          return value;
+        } else {
+          return a[1].toLowerCase().compareTo(b[1].toLowerCase());
+        }
+      }
+
+      // Si les éléments sont égaux selon la colonne 1, compare par la colonne 0
+      return a[1].toLowerCase().compareTo(b[1].toLowerCase());
+    });
 
     foundContact.assignAll(listStr);
 
