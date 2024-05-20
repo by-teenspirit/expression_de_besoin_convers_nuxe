@@ -1,9 +1,11 @@
+import 'package:expression_de_besoins_convers/app/routes/app_pages.dart';
 import 'package:expression_de_besoins_convers/config/app_colors.dart';
 import 'package:expression_de_besoins_convers/config/app_images.dart';
 import 'package:expression_de_besoins_convers/services/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:expression_de_besoins_convers/app/modules/auth/signIn/sign_in_controller.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInView extends GetView<SignInController> {
   const SignInView({Key? key}) : super(key: key);
@@ -349,6 +351,17 @@ class _LoginFormState extends State<LoginForm> {
               signInController.signIn();
             },
           ),
+          // GestureDetector(
+          //   onTap: () {
+          //     Get.toNamed(Routes.FORGET_PASSWORD);
+          //   },
+          //   child: Text("Mot de passe oublié",
+          //       style: GoogleFonts.openSans(
+          //           color: AppColors.greyDivider,
+          //           decoration: TextDecoration.underline,
+          //           fontWeight: FontWeight.w400,
+          //           fontSize: 14)),
+          // ),
           const SizedBox(height: 20.0),
           Row(
             children: <Widget>[
