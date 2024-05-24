@@ -55,6 +55,7 @@ flutter:
     - images/background-convers-transparent-tiny.png
     - images/background-test.jpg
     - images/background-transparent.png
+    - images/img-connexion.jpg
 
   fonts:
     - family: SackersGothicStd

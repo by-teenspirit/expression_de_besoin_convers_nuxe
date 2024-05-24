@@ -61,7 +61,7 @@ class SignInView extends GetView<SignInController> {
                                 // Deuxième colonne
                                 Expanded(
                                   child: Image.asset(
-                                    'images/connexion-img.png',
+                                    'images/img-connexion.jpg',
                                     fit: BoxFit.cover,
                                     height: 50.0,
                                     width: double.infinity,
@@ -208,7 +208,7 @@ class SignInView extends GetView<SignInController> {
                                           10.0), // Arrondi en bas à droite
                                     ),
                                     child: Image.asset(
-                                      'images/connexion-img.png',
+                                      'images/img-connexion.jpg',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
