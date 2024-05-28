@@ -1,5 +1,6 @@
 // COPY QUAD FLORENT
 
+import 'package:expression_de_besoins_convers/app/routes/app_pages.dart';
 import 'package:expression_de_besoins_convers/config/common_widgets.dart';
 import 'package:expression_de_besoins_convers/utils/image_utils.dart';
 import 'package:flutter/material.dart';
@@ -16,85 +17,140 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
   Widget build(BuildContext context) {
     return GetBuilder<ForgotPasswordController>(builder: (controller) {
       return Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Stack(
-          children: [
-            SizedBox(
-                width: 390.w,
-                height: 844.h,
-                child:
-                    Image.asset(AppImages.backgroundGrey, fit: BoxFit.cover)),
-            SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 27.w),
-                child: Column(children: [
-                  50.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: const Icon(
-                          Icons.arrow_back,
-                          color: Color(0xFF404040),
+          body: Stack(fit: StackFit.expand, children: [
+        Image.asset(
+          AppImages
+              .backgroundTrans, // Remplacez 'assets/background.jpg' par le chemin de votre image
+          fit: BoxFit.cover,
+        ),
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  'images/logo-nuxe-background.png',
+                  height: 100,
+                ),
+                const SizedBox(height: 30.0),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(
+                            0.3), // Couleur de l'ombre avec opacité
+                        spreadRadius: 3, // Rayon de propagation de l'ombre
+                        blurRadius: 10, // Rayon de flou de l'ombre
+                        offset: const Offset(0,
+                            3), // Décalage de l'ombre par rapport au conteneur
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      // Première colonne
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(40.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const Text(
+                                'PORTAIL RGPD',
+                                style: TextStyle(
+                                  fontSize: 36.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'SackersGothicStd',
+                                ),
+                              ),
+                              const Text(
+                                'Mot de passe oublié',
+                                style: TextStyle(
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'SackersGothicStd',
+                                  decoration: TextDecoration.underline,
+                                  decorationThickness: 2.0,
+                                ),
+                              ),
+                              const SizedBox(height: 50.0),
+                              TextFormField(
+                                controller: controller.emailController,
+                                decoration: InputDecoration(
+                                  labelText: 'Adresse e-mail',
+                                  hintText: 'Saisissez votre adresse e-mail',
+                                  labelStyle:
+                                      const TextStyle(color: Color(0xFF104437)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        color: Color(0xFF104437)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        color: Color(0xFF104437)),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Veuillez entrer un nom d\'utilisateur';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 20.0),
+                              normalCustomButton(
+                                  callback: () {
+                                    controller.sendMail();
+                                  },
+                                  title: "Recevoir mon mot de passe"),
+                              const SizedBox(height: 50.0),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.SIGN_IN);
+                                },
+                                child: Text(
+                                  "Se connecter",
+                                  style: GoogleFonts.openSans(
+                                      color: AppColors.darkGreen,
+                                      decoration: TextDecoration.underline,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      ImageUtils.imageUtilsInstance
-                          .showSVGIcon(AppImages.logoSvg),
-                      const SizedBox(width: 20)
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(
+                                10.0), // Arrondi en haut à droite
+                            bottomRight: Radius.circular(
+                                10.0), // Arrondi en bas à droite
+                          ),
+                          child: Image.asset(
+                            'images/img-connexion.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  70.verticalSpace,
-                  Text("Mot de passe\noubliÃ©",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.quicksand(
-                          color: AppColors.greyDivider,
-                          height: 1.3,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 32.sp)),
-                  90.verticalSpace,
-                  Row(
-                    children: [
-                      Text("Adresse e-mail",
-                          style: GoogleFonts.rubik(
-                              color: AppColors.greyDivider,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.sp)),
-                    ],
-                  ),
-                  5.verticalSpace,
-                  textField(
-                    controller: controller.emailController,
-                    hintText: 'nomprenom@exemple.com',
-                    //dynamiccontroller: controller,
-                    inputType: TextInputType.emailAddress,
-                  ),
-                  20.verticalSpace,
-                  normalCustomButton(
-                      callback: () {
-                        controller.sendMail();
-                      },
-                      title: "Recevoir mon mot de passe"),
-                  215.verticalSpace,
-                  Text("Vous nâ€™avez pas de compte ?",
-                      style: GoogleFonts.rubik(
-                          color: AppColors.greyDivider,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp)),
-                  Text("CrÃ©er un compte",
-                      style: GoogleFonts.rubik(
-                          color: AppColors.greyDivider,
-                          decoration: TextDecoration.underline,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp)),
-                ]),
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      );
+      ]));
     });
   }
 }

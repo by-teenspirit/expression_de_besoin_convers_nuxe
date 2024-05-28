@@ -23,8 +23,7 @@ Widget normalCustomButton(
       callback();
     },
     child: Container(
-      height: height.h,
-      width: width.w,
+      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: buttonColor,
@@ -42,7 +41,8 @@ Widget normalCustomButton(
         children: [
           if (loading)
             Padding(
-              padding: const EdgeInsets.only(right: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
               child: LoadingAnimationWidget.hexagonDots(
                 color: AppColors.colorPrimary,
                 size: 25.r,
@@ -50,8 +50,10 @@ Widget normalCustomButton(
             ),
           Text(
             title,
-            style: GoogleFonts.quicksand(
-                color: textcolor, fontWeight: FontWeight.bold, fontSize: 18.sp),
+            style: const TextStyle(
+              fontFamily: 'SackersGothicStd',
+              color: Colors.white,
+            ),
           ),
         ],
       ),

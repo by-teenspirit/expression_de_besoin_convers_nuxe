@@ -351,17 +351,20 @@ class _LoginFormState extends State<LoginForm> {
               signInController.signIn();
             },
           ),
-          // GestureDetector(
-          //   onTap: () {
-          //     Get.toNamed(Routes.FORGET_PASSWORD);
-          //   },
-          //   child: Text("Mot de passe oublié",
-          //       style: GoogleFonts.openSans(
-          //           color: AppColors.greyDivider,
-          //           decoration: TextDecoration.underline,
-          //           fontWeight: FontWeight.w400,
-          //           fontSize: 14)),
-          // ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.FORGET_PASSWORD);
+            },
+            child: Text(
+              "Mot de passe oublié",
+              style: GoogleFonts.openSans(
+                  color: AppColors.darkGreen,
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14),
+              textAlign: TextAlign.right,
+            ),
+          ),
           const SizedBox(height: 20.0),
           Row(
             children: <Widget>[
