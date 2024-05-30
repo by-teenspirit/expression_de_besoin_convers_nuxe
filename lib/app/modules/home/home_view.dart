@@ -55,158 +55,159 @@ class _HomeViewState extends State<HomeView> {
                 .backgroundTrans, // Remplacez 'assets/background.jpg' par le chemin de votre image
             fit: BoxFit.cover,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.1,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(
-                    height:
-                        kToolbarHeight), // Espacement du haut pour éviter le chevauchement avec la ligne contenant le logo et le container
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Logo à gauche
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Image.asset(
-                        "images/logo-nuxe-background.png",
-                        fit: BoxFit.contain,
-                        height: 60.0,
-                      ),
-                    ),
-                    // Container à droite
-                    Container(
-                      margin: const EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 0,
-                            blurRadius: 1,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 5.0),
-                        child: TextButton.icon(
-                          onPressed: () async {
-                            homeController.disconnect();
-                          },
-                          label: Text(
-                            (MyApp?.user?.firstname ?? "") +
-                                " " +
-                                (MyApp?.user?.lastname ?? ""),
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'SackersGothicStd',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          icon: const Icon(Icons.power_settings_new,
-                              color: AppColors.red),
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.1,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(
+                      height:
+                          kToolbarHeight), // Espacement du haut pour éviter le chevauchement avec la ligne contenant le logo et le container
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Logo à gauche
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Image.asset(
+                          "images/logo-nuxe-background.png",
+                          fit: BoxFit.contain,
+                          height: 60.0,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                const Center(
-                  child: Text(
-                    'PORTAIL RGPD',
-                    style: TextStyle(
-                      fontSize: 36.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'SackersGothicStd',
-                    ),
-                  ),
-                ),
-                const Center(
-                  child: Text(
-                    'Recherchez l\'utilisateur concerné',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 50.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      child: _buildTextFormField(
-                          'Nom', homeController.lastnameController),
-                    ),
-                    const SizedBox(width: 10.0),
-                    Expanded(
-                      child: _buildTextFormField(
-                          'Prénom', homeController.firstnameController),
-                    ),
-                    const SizedBox(width: 10.0),
-                    Expanded(
-                      child: _buildTextFormField(
-                          'Adresse e-mail', homeController.emailController),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                Center(
-                  child: ElevatedButton.icon(
-                    onPressed: homeController.getDatas,
-                    icon: const Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    label: const Text('Rechercher',
-                        style: TextStyle(
-                          fontFamily: 'SackersGothicStd',
+                      // Container à droite
+                      Container(
+                        margin: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
                           color: Colors.white,
-                        )),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.darkGreen,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40.0, vertical: 15.0)),
+                          borderRadius: BorderRadius.circular(10.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 0,
+                              blurRadius: 1,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 5.0),
+                          child: TextButton.icon(
+                            onPressed: () async {
+                              homeController.disconnect();
+                            },
+                            label: Text(
+                              (MyApp?.user?.firstname ?? "") +
+                                  " " +
+                                  (MyApp?.user?.lastname ?? ""),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'SackersGothicStd',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            icon: const Icon(Icons.power_settings_new,
+                                color: AppColors.red),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 50.0),
-                Row(
-                  children: [
-                    const Text(
-                      'Résultat de recherche : ',
+                  const SizedBox(height: 20.0),
+                  const Center(
+                    child: Text(
+                      'PORTAIL RGPD',
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 36.0,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'SackersGothicStd',
                       ),
                     ),
-                    Obx(() {
-                      return Text(
-                        homeController.foundContact.length.toString(),
-                        style: const TextStyle(
+                  ),
+                  const Center(
+                    child: Text(
+                      'Recherchez l\'utilisateur concerné',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 50.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        child: _buildTextFormField(
+                            'Nom', homeController.lastnameController),
+                      ),
+                      const SizedBox(width: 10.0),
+                      Expanded(
+                        child: _buildTextFormField(
+                            'Prénom', homeController.firstnameController),
+                      ),
+                      const SizedBox(width: 10.0),
+                      Expanded(
+                        child: _buildTextFormField(
+                            'Adresse e-mail', homeController.emailController),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 20.0),
+                  Center(
+                    child: ElevatedButton.icon(
+                      onPressed: homeController.getDatas,
+                      icon: const Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
+                      label: const Text('Rechercher',
+                          style: TextStyle(
+                            fontFamily: 'SackersGothicStd',
+                            color: Colors.white,
+                          )),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.darkGreen,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40.0, vertical: 15.0)),
+                    ),
+                  ),
+                  const SizedBox(height: 50.0),
+                  Row(
+                    children: [
+                      const Text(
+                        'Résultat de recherche : ',
+                        style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'SackersGothicStd',
                         ),
-                      );
-                    }),
-                  ],
-                ),
+                      ),
+                      Obx(() {
+                        return Text(
+                          homeController.foundContact.length.toString(),
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'SackersGothicStd',
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
 
-                const SizedBox(height: 10.0),
-                isSmallScreen
-                    ? SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: _buildTableRows(),
-                      )
-                    : _buildTableRows(),
-              ],
+                  const SizedBox(height: 10.0),
+                  isSmallScreen
+                      ? SingleChildScrollView(
+                          child: _buildTableRows(),
+                        )
+                      : _buildTableRows(),
+                ],
+              ),
             ),
           ),
         ],

@@ -4,6 +4,7 @@ import 'package:expression_de_besoins_convers/config/app_images.dart';
 import 'package:expression_de_besoins_convers/services/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:expression_de_besoins_convers/app/modules/auth/signIn/sign_in_controller.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,7 @@ class SignInView extends GetView<SignInController> {
                   .backgroundTrans, // Remplacez 'assets/background.jpg' par le chemin de votre image
               fit: BoxFit.cover,
             ),
-            Center(
+            SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -56,20 +57,18 @@ class SignInView extends GetView<SignInController> {
                         color: Colors.white,
                       ),
                       child: isSmallScreen
-                          ? Column(
-                              children: <Widget>[
-                                // Deuxième colonne
-                                Expanded(
-                                  child: Image.asset(
+                          ? SingleChildScrollView(
+                              child: Column(
+                                children: <Widget>[
+                                  // Deuxième colonne
+                                  Image.asset(
                                     'images/img-connexion.jpg',
                                     fit: BoxFit.cover,
-                                    height: 50.0,
+                                    height: 100.0,
                                     width: double.infinity,
                                   ),
-                                ),
-                                // Première colonne
-                                Expanded(
-                                  child: Padding(
+                                  // Première colonne
+                                  Padding(
                                     padding: const EdgeInsets.all(40.0),
                                     child: Column(
                                       mainAxisAlignment:
@@ -94,45 +93,11 @@ class SignInView extends GetView<SignInController> {
                                         ),
                                         LoginForm(),
                                         const SizedBox(height: 10.0),
-                                        Row(
-                                          children: <Widget>[
-                                            Checkbox(
-                                              value: false,
-                                              onChanged: (value) {
-                                                UserSettings.saveRememberMe(
-                                                    value ?? false,
-                                                    signInController
-                                                        .usernameController
-                                                        .text,
-                                                    signInController
-                                                        .passController.text);
-                                              },
-                                            ),
-                                            const Text('Se souvenir de moi'),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 20.0),
-                                        Center(
-                                          child: ElevatedButton.icon(
-                                            onPressed: () {
-                                              // Action de se connecter
-                                            },
-                                            icon: const Icon(Icons.login),
-                                            label: const Text('Se connecter'),
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    const Color(0xFF104437),
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 40.0,
-                                                        vertical: 15.0)),
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             )
                           : Row(
                               children: <Widget>[
@@ -140,60 +105,34 @@ class SignInView extends GetView<SignInController> {
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.all(40.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        const Text(
-                                          'PORTAIL RGPD',
-                                          style: TextStyle(
-                                            fontSize: 36.0,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'SackersGothicStd',
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          const Text(
+                                            'PORTAIL RGPD',
+                                            style: TextStyle(
+                                              fontSize: 36.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'SackersGothicStd',
+                                            ),
                                           ),
-                                        ),
-                                        const Text(
-                                          'Se connecter',
-                                          style: TextStyle(
-                                            fontSize: 24.0,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'SackersGothicStd',
-                                            decoration:
-                                                TextDecoration.underline,
-                                            decorationThickness: 2.0,
+                                          const Text(
+                                            'Se connecter',
+                                            style: TextStyle(
+                                              fontSize: 24.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'SackersGothicStd',
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              decorationThickness: 2.0,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(height: 50.0),
-                                        LoginForm()
-                                        // Column(
-                                        //   children: [
-                                        //     Row(
-                                        //       children: [
-                                        //         const Text("Nom d’utilisateur"),
-                                        //         textField(
-                                        //           controller: TextEditingController(
-                                        //               text: "test"),
-                                        //           hintText: 'nomprenom@exemple.com',
-                                        //           //dynamiccontroller: controller,
-                                        //           inputType:
-                                        //               TextInputType.emailAddress,
-                                        //         ),
-                                        //         // TextFormField(
-                                        //         //   controller: signInController.usernameController,
-                                        //         //   keyboardType:
-                                        //         //       TextInputType.emailAddress,
-                                        //         //   decoration: const InputDecoration(
-                                        //         //     hintText: 'Email',
-                                        //         //     //dynamiccontroller: controller,
-                                        //         //   ),
-                                        //         // ),
-                                        //       ],
-                                        //     ),
-                                        //   ],
-                                        // )
-
-                                        // LoginForm(),
-                                      ],
+                                          const SizedBox(height: 50.0),
+                                          LoginForm(),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -241,55 +180,6 @@ class _LoginFormState extends State<LoginForm> {
     super.initState();
     signInController = Get.put(SignInController());
   }
-
-  // Future<void> authenticate(String username, String password) async {
-  //   const url =
-  //       '/api/authenticate'; // Remplace TON_URL_API par le lien de ton API
-  //   final response = await http.post(
-  //     Uri.parse(url),
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //     body: jsonEncode(<String, String>{
-  //       'username': username,
-  //       'password': password,
-  //     }),
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     // Authentification réussie
-  //     final responseData = jsonDecode(response.body);
-  //     final token =
-  //         responseData['id_token']; // Récupérer le token d'authentification
-  //     if (responseData.containsKey("result")) {
-  //       return Future<dynamic>.value(responseData["result"]);
-  //     } else {
-  //       return Future<dynamic>.value(responseData);
-  //     }
-  //     // Faire ce que tu veux avec le token, par exemple, sauvegarder dans le stockage local
-  //   } else {
-  //     // Gérer les erreurs
-  //     throw Exception('Erreur lors de l\'authentification');
-  //   }
-  // }
-
-  // void _submitForm() {
-  //   if (_formKey.currentState!.validate()) {
-  //     // final username = signInController.usernameController.text;
-  //     // final password = signInController.passController.text;
-  //     // authenticate(username, password).then((_) {
-  //     //   // Naviguer vers une nouvelle page si l'authentification réussit
-  //     //   Navigator.pushReplacementNamed(context, '/main');
-  //     // }).catchError((error) {
-  //     //   // Afficher un message d'erreur si l'authentification échoue
-  //     //   ScaffoldMessenger.of(context).showSnackBar(
-  //     //     const SnackBar(
-  //     //       content: Text('Erreur lors de l\'authentification'),
-  //     //     ),
-  //     //   );
-  //     // });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -351,20 +241,20 @@ class _LoginFormState extends State<LoginForm> {
               signInController.signIn();
             },
           ),
-          GestureDetector(
-            onTap: () {
-              Get.toNamed(Routes.FORGET_PASSWORD);
-            },
-            child: Text(
-              "Mot de passe oublié",
-              style: GoogleFonts.openSans(
-                  color: AppColors.darkGreen,
-                  decoration: TextDecoration.underline,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14),
-              textAlign: TextAlign.right,
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     Get.toNamed(Routes.FORGET_PASSWORD);
+          //   },
+          //   child: Text(
+          //     "Mot de passe oublié",
+          //     style: GoogleFonts.openSans(
+          //         color: AppColors.darkGreen,
+          //         decoration: TextDecoration.underline,
+          //         fontWeight: FontWeight.w400,
+          //         fontSize: 14),
+          //     textAlign: TextAlign.right,
+          //   ),
+          // ),
           const SizedBox(height: 20.0),
           Row(
             children: <Widget>[
